@@ -46,11 +46,13 @@ abstract public class Mascota {
     public String toString(){
         return (nombre+" || H: "+hambre+" - Hig: "+higiene + " - Sal:"+ salud + " - Fel: "+felicidad);
     }
+
 }
 
 class Gato extends Mascota{
     public Gato(String s, String u, int a){
         super(s,u,a);
+        Atributos atri=Atributos.GATO;
         hambre = new Stat(80,50,90,1);
         higiene = new Stat(80,30,50,5);
         salud = new Stat(80,70,70,3);
