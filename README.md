@@ -4,7 +4,7 @@ Tarea Final de la asignatura de Desarrollo Orientado a Objetos
 Camila Alejandra Garcia Torres (Kmiktt)
 Benjamin Alejandro Stuckrath Bustamante (Stuckrath)
 Fernanda Catalina Rubilar Sánchez (Catalinafer2023)
-##Actualizaciones por Semana:
+## Actualizaciones por Semana:
 #### Semana 1:
 Se creo la base tanto de la clase de Mascota que se va a utilizar, como de la GUI, dividiendo la ventana en el panel que mostrará el contenido de la habitación y en el panel que contiene acciones constantes, como el boton para revisar el inventario, para cambiar de habitación y botones para cambiar la velocidad del juego (IMG 1). También se diseñaron diagramas de casos de uso simples para usar de referencia de momento (IMG 2) y diagramas para usar como referencias nosotros de como deberian ser las distintas propiedades de Mascota (IMG 3) y como deberian estar distribuidas las salas dentro del mapa y el contenido de cada una (IMG 4)
 
