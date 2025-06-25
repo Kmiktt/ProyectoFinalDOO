@@ -70,3 +70,14 @@ class Perro extends Mascota{
     }
 }
 
+class Pez extends Mascota{
+    public Pez(String s, String u, int a,Atributos atri){
+        super(s,u,a,atri);
+        this.atri = Atributos.PEZ;
+        this.hambre = atri.getHambre();
+        this.higiene = atri.getHigiene();
+        this.salud = atri.getSalud();
+        this.felicidad = atri.getFelicidad();
+    }
+}
+

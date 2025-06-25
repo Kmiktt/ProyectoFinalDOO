@@ -9,13 +9,15 @@ public class Main {
         var con = System.console();
         System.out.print("seleccione mascota:\n" +
                 "1 = gato\n" +
-                "2 = perro\n");
+                "2 = perro\n" +
+                "3 = pez\n");
         Mascota m = null;
         Scanner preg = new Scanner(con.reader());
         int a = preg.nextInt();
         switch(a){
             case 1: m = new Gato("A","B",3,Atributos.GATO);
             case 2: m = new Perro("C","D", 4,Atributos.PERRO);
+            case 3: m = new Pez("E","F", 5, Atributos.PEZ);
             default:
         }
         while(con!=null){
