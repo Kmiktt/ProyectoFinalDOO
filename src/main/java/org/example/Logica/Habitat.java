@@ -17,7 +17,6 @@ public class Habitat implements TomaMascota {
          }
     }
 
-    //aqui no se si es mejor tomar por index o tomar por objeto
     public void darMascota(int i){
         Mascota a;
         try{
@@ -27,14 +26,16 @@ public class Habitat implements TomaMascota {
             a=null;
         }
         //aqui depende de que el Habitat haya sido creado despues de el usuario
-        Usuario.getInstance().tomarMascota(a);
+        animales.add(Usuario.getInstance().tomarMascota(a));
     }
+
     public Mascota agregarMascota(Mascota ma)
     {
         if (animales.size()+1>tamano) {
             return ma;
         }
         else {
+            animales.add(ma);
             return null;
         }
     }
