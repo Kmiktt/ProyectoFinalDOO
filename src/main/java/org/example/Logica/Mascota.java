@@ -1,61 +1,83 @@
 package org.example.Logica;
 
+import java.util.Objects;
 import java.util.Random;
 
 abstract public class Mascota {
     public String nombre;
-    public Stat hambre;
-    public Stat higiene;
-    public Stat salud;
-    public Stat felicidad;
+    public int hambre;
+    public int higiene;
+    public int salud;
+    public int felicidad;
     public String ubicacion;
     public int aspecto;
-    public Mascota(String s, String ubi, int skin){
-        hambre = new Stat(80,50,100,1);
-        higiene = new Stat(80,30,100,5);
-        salud = new Stat(80,70,100,3);
-        felicidad = new Stat(80,100,100,3);
+    public Atributos atri;
+    public Mascota(String s, String ubi, int skin, Atributos atri){
         nombre = s;
-        ubicacion = ubi;
-        aspecto = skin;
-
     }
-    public void jugar(){
-        felicidad.aumentarStat();
-    }
-    public void alimentar(){
-        hambre.aumentarStat();
+    public void jugar(String a){
+        if(felicidad != this.atri.getFelicidad()) felicidad = felicidad + 20;
+        if(Objects.equals(a, atri.getJuego())) felicidad = felicidad + 10;}
+    public void alimentar(String a){
+        hambre = hambre + 20;
+        if(Objects.equals(a, atri.getComida())) hambre = hambre + 10;
+        if(hambre >= this.atri.getHambre()) hambre = this.atri.getHambre();
     }
     public void sanar(){
-        salud.aumentarStat();
+        salud = salud + 20;
+        if(salud != this.atri.getSalud()) salud = this.atri.getSalud();
     }
     public void limpiar(){
-        higiene.aumentarStat();
+        higiene = higiene + 20;
+        if(higiene != this.atri.getHigiene()) higiene = this.atri.getHigiene();
     }
     public void update(){
-        double x = Math.random();
-        if (x>0.8) hambre.decrecer();
-        x = Math.random();;
-        if (x>0.4) higiene.decrecer();
-        x = Math.random();;
-        if (x>0.2) salud.decrecer();
-        x = Math.random();;
-        if (x>0.4) felicidad.decrecer();
+        //nota: esta parte podría ser mejor, ESP
+        if(felicidad != 0) felicidad = felicidad - 3;
+        else felicidad = 0;
+        if(hambre != 0) hambre = hambre - 3;
+        else hambre = 0;
+        if(salud != 0) salud = salud - 3;
+        else salud = 0;
+        if(higiene != 0) higiene = higiene - 3;
+        else higiene = 0;
     }
     @Override
     public String toString(){
         return (nombre+" || H: "+hambre+" - Hig: "+higiene + " - Sal:"+ salud + " - Fel: "+felicidad);
     }
-
 }
 
 class Gato extends Mascota{
-    public Gato(String s, String u, int a){
-        super(s,u,a);
-        Atributos atri=Atributos.GATO;
-        hambre = new Stat(80,50,90,1);
-        higiene = new Stat(80,30,50,5);
-        salud = new Stat(80,70,70,3);
-        felicidad = new Stat(80,100,170,3);
+    public Gato(String s, String u, int a, Atributos atri){
+        super(s,u,a,atri);
+        this.atri = Atributos.GATO;
+        this.hambre = atri.getHambre();
+        this.higiene = atri.getHigiene();
+        this.salud = atri.getSalud();
+        this.felicidad = atri.getFelicidad();
     }
 }
+
+class Perro extends Mascota{
+    public Perro(String s, String u, int a,Atributos atri){
+        super(s,u,a,atri);
+        this.atri = Atributos.PERRO;
+        this.hambre = atri.getHambre();
+        this.higiene = atri.getHigiene();
+        this.salud = atri.getSalud();
+        this.felicidad = atri.getFelicidad();
+    }
+}
+
+class Pez extends Mascota{
+    public Pez(String s, String u, int a,Atributos atri){
+        super(s,u,a,atri);
+        this.atri = Atributos.PEZ;
+        this.hambre = atri.getHambre();
+        this.higiene = atri.getHigiene();
+        this.salud = atri.getSalud();
+        this.felicidad = atri.getFelicidad();
+    }
+}
+
