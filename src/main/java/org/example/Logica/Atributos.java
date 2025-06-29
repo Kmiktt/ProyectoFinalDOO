@@ -36,7 +36,7 @@ public enum Atributos {
     public String getHabitat(){
         return habitat;
     }
-    public String getEspecia(){
+    public String getEspecie(){
         return especie;
     }
     public int getHambre(){return hambre;}

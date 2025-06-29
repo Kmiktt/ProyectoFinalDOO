@@ -15,6 +15,9 @@ abstract public class Mascota {
     public Mascota(String s, String ubi, int skin, Atributos atri){
         nombre = s;
     }
+    public String getTipo(){
+        return atri.getEspecie();
+    }
     public void jugar(String a){
         if(felicidad != this.atri.getFelicidad()) felicidad = felicidad + 20;
         if(Objects.equals(a, atri.getJuego())) felicidad = felicidad + 10;}
@@ -46,6 +49,7 @@ abstract public class Mascota {
     public String toString(){
         return (nombre+" || H: "+hambre+" - Hig: "+higiene + " - Sal:"+ salud + " - Fel: "+felicidad);
     }
+
 }
 
 class Gato extends Mascota{
