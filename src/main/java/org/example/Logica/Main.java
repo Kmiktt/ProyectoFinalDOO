@@ -15,9 +15,9 @@ public class Main {
         Scanner preg = new Scanner(con.reader());
         int a = preg.nextInt();
         switch(a){
-            case 1: m = new Gato("A","B",3,Atributos.GATO);
-            case 2: m = new Perro("C","D", 4,Atributos.PERRO);
-            case 3: m = new Pez("E","F", 5, Atributos.PEZ);
+            case 1: m = new Gato("A","B",3);
+            case 2: m = new Perro("C","D", 4);
+            case 3: m = new Pez("E","F", 5);
             default:
         }
         while(con!=null){

@@ -1,9 +1,9 @@
 package org.example.Logica;
 
 import java.util.Objects;
-import java.util.Random;
 
 abstract public class Mascota {
+    public Consumible obj;
     public String nombre;
     public int hambre;
     public int higiene;
@@ -12,28 +12,34 @@ abstract public class Mascota {
     public String ubicacion;
     public int aspecto;
     public Atributos atri;
-    public Mascota(String s, String ubi, int skin, Atributos atri){
+    public Mascota(String s, String ubi, int skin, Atributos a){
         nombre = s;
+        atri=a;
     }
     public String getTipo(){
         return atri.getEspecie();
     }
+    //ACTIVIDADES
     public void jugar(String a){
         if(felicidad != this.atri.getFelicidad()) felicidad = felicidad + 20;
         if(Objects.equals(a, atri.getJuego())) felicidad = felicidad + 10;}
+
     public void alimentar(String a){
         hambre = hambre + 20;
         if(Objects.equals(a, atri.getComida())) hambre = hambre + 10;
         if(hambre >= this.atri.getHambre()) hambre = this.atri.getHambre();
     }
+
     public void sanar(){
         salud = salud + 20;
         if(salud != this.atri.getSalud()) salud = this.atri.getSalud();
     }
+
     public void limpiar(){
         higiene = higiene + 20;
         if(higiene != this.atri.getHigiene()) higiene = this.atri.getHigiene();
     }
+    //ACTUALIZAR ESTADO
     public void update(){
         //nota: esta parte podría ser mejor, ESP
         if(felicidad != 0) felicidad = felicidad - 3;
@@ -45,6 +51,27 @@ abstract public class Mascota {
         if(higiene != 0) higiene = higiene - 3;
         else higiene = 0;
     }
+
+    //DARLE OBJETO
+    public Consumible tomarObjeto(Consumible o){
+        //si es que es una medicina, si es usable entonces lo usa, sino se lo devuelve
+        if (o.getTipo().equals("medicina")){
+            //esta es la condicion para que se tome la medicina (puede cambiarse despues)
+            if (salud<atri.getSalud()-10){
+            sanar();
+            }
+            else {
+                return o;
+            }
+        }
+        else{
+            //hasta ahora si no es medicina generica entonces es un alimento asi que se lo come
+            alimentar(o.getTipo());
+        }
+        //si es que "absorbio" el objeto entonces no se lo devuelve
+        return null;
+    }
+
     @Override
     public String toString(){
         return (nombre+" || H: "+hambre+" - Hig: "+higiene + " - Sal:"+ salud + " - Fel: "+felicidad);
@@ -53,9 +80,8 @@ abstract public class Mascota {
 }
 
 class Gato extends Mascota{
-    public Gato(String s, String u, int a, Atributos atri){
-        super(s,u,a,atri);
-        this.atri = Atributos.GATO;
+    public Gato(String s, String u, int a){
+        super(s,u,a,Atributos.GATO);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
@@ -64,9 +90,8 @@ class Gato extends Mascota{
 }
 
 class Perro extends Mascota{
-    public Perro(String s, String u, int a,Atributos atri){
-        super(s,u,a,atri);
-        this.atri = Atributos.PERRO;
+    public Perro(String s, String u, int a){
+        super(s,u,a,Atributos.PERRO);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
@@ -75,9 +100,8 @@ class Perro extends Mascota{
 }
 
 class Pez extends Mascota{
-    public Pez(String s, String u, int a,Atributos atri){
-        super(s,u,a,atri);
-        this.atri = Atributos.PEZ;
+    public Pez(String s, String u, int a){
+        super(s,u,a,Atributos.PEZ);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
