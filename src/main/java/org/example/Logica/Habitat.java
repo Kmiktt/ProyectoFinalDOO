@@ -26,7 +26,7 @@ public class Habitat implements TomaMascota {
             a=null;
         }
         //aqui depende de que el Habitat haya sido creado despues de el usuario
-        animales.add(Usuario.getInstance().tomarMascota(a));
+        //animales.add(Usuario.getInstance().tomarMascota(a));
     }
 
     public Mascota agregarMascota(Mascota ma)

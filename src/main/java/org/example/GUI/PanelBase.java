@@ -9,7 +9,6 @@ public class PanelBase extends JPanel {
     public PanelBase(){
         super();
         this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createLineBorder(Color.gray,5));
         pSala = new PanelSalaActual();
         pSala.setPreferredSize(new Dimension(500,300));
         this.add(pSala,BorderLayout.CENTER);

@@ -11,8 +11,7 @@ public class PanelVelocidad extends JPanel {
     private JButton v8;
     public PanelVelocidad() {
         super();
-        this.setLayout(new BorderLayout());
-        this.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+        PanelCreator.PanVel.update(this);
         JPanel panelTitulo = PanelCreator.VelTitle.crear();
         JPanel panelDeBotones = PanelCreator.VelBotones.crear();
         JLabel titulo = new JLabel("Elegir Velocidad de Juego");

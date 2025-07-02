@@ -5,27 +5,40 @@ import javax.swing.border.Border;
 import java.awt.*;
 
 public enum PanelCreator {
+    BaseAcc(null,new Color(176,122,86),BorderFactory.createLineBorder(new Color(44,14,3),3)),
+    PanVel(new BorderLayout(),PanelCreator.BaseAcc.bgC(),PanelCreator.BaseAcc.bdr()),
+    PanMap(new GridBagLayout(),PanelCreator.BaseAcc.bgC(),PanelCreator.BaseAcc.bdr()),
     VelTitle(new GridBagLayout(), new Color(224, 198, 99,125), null),
-    Acciones(new GridLayout(1,3,100,0),null,(BorderFactory.createLineBorder(Color.BLUE,2))),
-    VelBotones(new GridLayout(2,2,30,10),new Color(0,0,0,0),BorderFactory.createLineBorder(new Color(0,0,0,0),5));
-    private JPanel panel;
+    Acciones(new GridLayout(1,3,100,0),null,(BorderFactory.createLineBorder(new Color(10,10,10),4))),
+    VelBotones(new GridLayout(2,2,30,10),new Color(0,0,0,0),BorderFactory.createLineBorder(new Color(0,0,0,0),5)),
+    MascotaWrapper(new GridBagLayout(), new Color(255,200,200,220),BorderFactory.createLineBorder(Color.blue,3));
     private LayoutManager layout;
     private Color bgColor;
     private Border bord;
     PanelCreator(LayoutManager Layout, Color bg, Border border){
-        panel = new JPanel();
-        panel.setLayout(Layout);
-        panel.setBackground(bg);
-        panel.setBorder(border);
         layout = Layout;
         bgColor = bg;
+        bord = border;
     }
     public void update(JPanel p){
-        p.setLayout(layout);
-        p.setBackground(bgColor);
-        p.setBorder(bord);
+        if (layout!=null) p.setLayout(layout);
+        if(bgColor!=null)p.setBackground(bgColor);
+        if (bord!=null) p.setBorder(bord);
     }
     public JPanel crear(){
+        JPanel panel = new JPanel();
+        if (layout!=null) panel.setLayout(layout);
+        if(bgColor!=null)panel.setBackground(bgColor);
+        if (bord!=null)panel.setBorder(bord);
         return panel;
+    }
+    public LayoutManager LM(){
+        return layout;
+    }
+    public Color bgC(){
+        return bgColor;
+    }
+    public Border bdr(){
+        return bord;
     }
 }
