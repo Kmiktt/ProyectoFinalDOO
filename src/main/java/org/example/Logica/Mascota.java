@@ -1,5 +1,7 @@
 package org.example.Logica;
 
+import org.example.GUI.PanelHabitat;
+
 import java.util.Objects;
 
 abstract public class Mascota {
@@ -9,7 +11,7 @@ abstract public class Mascota {
     public int higiene;
     public int salud;
     public int felicidad;
-    public String ubicacion;
+    public PanelHabitat ubicacion;
     public int aspecto;
     public Atributos atri;
     public Mascota(String s, String ubi, int skin, Atributos a){

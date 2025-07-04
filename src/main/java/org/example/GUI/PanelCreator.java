@@ -11,7 +11,8 @@ public enum PanelCreator {
     VelTitle(new GridBagLayout(), new Color(224, 198, 99,125), null),
     Acciones(new GridLayout(1,3,100,0),null,(BorderFactory.createLineBorder(new Color(10,10,10),4))),
     VelBotones(new GridLayout(2,2,30,10),new Color(0,0,0,0),BorderFactory.createLineBorder(new Color(0,0,0,0),5)),
-    MascotaWrapper(new GridBagLayout(), new Color(255,200,200,220),BorderFactory.createLineBorder(Color.blue,3));
+    MascotaWrapper(new GridBagLayout(), new Color(255,200,200,255),BorderFactory.createLineBorder(Color.BLACK,3)),
+    Vacio(null, new Color(0,0,0,0),null);
     private LayoutManager layout;
     private Color bgColor;
     private Border bord;
