@@ -3,9 +3,11 @@ package org.example.GUI;
 import org.example.Logica.Gato;
 import org.example.Logica.Mascota;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class PanelSalaActual extends JPanel {
@@ -20,13 +22,15 @@ public class PanelSalaActual extends JPanel {
         mascotasDeHabitat.add(m);
         mascotasDeHabitat.add(m);
         mascotasDeHabitat.add(m);
-
-
-
         for (int i = 0; i<6; i++){
             if(mascotasDeHabitat.size()>i) {PMascInHabitat p = new PMascInHabitat(mascotasDeHabitat.get(i)); this.add(p);}
-            else {JPanel p = new JPanel(); this.add(p);}
+            else {JPanel p = new JPanel(); p.setBackground(new Color(0,0,0,0)); this.add(p);}
         }
+    }
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon("src/main/resources/fondotest.jpg").getImage(),0,0,null);
     }
 }
 

@@ -15,9 +15,13 @@ abstract public class Mascota {
     public Mascota(String s, String ubi, int skin, Atributos a){
         nombre = s;
         atri=a;
+        aspecto = skin;
     }
     public String getTipo(){
         return atri.getEspecie();
+    }
+    public int getAspecto(){
+        return aspecto;
     }
     //ACTIVIDADES
     public void jugar(String a){
