@@ -19,7 +19,7 @@ public class Usuario {
         }
         return instancia;
     }
-
+    //TOMA UN OBJETO Y LO DEJA EN SU MANO
     public Consumible tomarObjeto(Consumible o){
         if (manoobjeto==null){
             manoobjeto=o;
@@ -31,6 +31,7 @@ public class Usuario {
             return a;
         }
     }
+    //TOMA UN OBJETO DEL INVENTARIO Y LO DEJA EN SU MANO
     public void sacarInventario(int i){
         Consumible a;
         try{
@@ -41,14 +42,30 @@ public class Usuario {
         }
         inventario.add(tomarObjeto(a));
     }
-
+    //LE DA UN OBJETO A UNA MASCOTA
     public void darObjeto(Mascota masc){
         manoobjeto=masc.tomarObjeto(manoobjeto);
     }
 
+    public void agregarObjeto(Consumible a){
+        inventario.add(a);
+    }
+
+    public ArrayList<Consumible> getInventario() {
+        return inventario;
+    }
+
+    //aqui podria haber un assert de (noSuficienteDinero) o algo asi
+    public void restarDinero(int d){
+        dinero-=d;
+    }
 
     public void recibirDinero(int d){
         dinero+=d;
+    }
+
+    public int getDinero(){
+        return dinero;
     }
 
     public Mascota tomarMascota(Mascota a){
@@ -61,5 +78,8 @@ public class Usuario {
 
     public void colocarMascota(TomaMascota toma){
         manomascota=toma.agregarMascota(manomascota);
+    }
+    public Mascota getMascota(){
+        return manomascota;
     }
 }
