@@ -7,7 +7,7 @@ public class ClienteMascota implements TomaMascota{
 
     public Mascota agregarMascota(Mascota ma)
     {
-        if (true) {
+        if (!(ma.getTipo().equals(Tipo))) {
             return ma;
         }
         else {
