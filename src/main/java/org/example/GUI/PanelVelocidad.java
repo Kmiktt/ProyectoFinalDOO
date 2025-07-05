@@ -33,12 +33,3 @@ public class PanelVelocidad extends JPanel {
         }
     }
 }
-class TitleProxy{
-    JLabel title;
-    public TitleProxy(JLabel t){
-        title=t;
-    }
-    public void updatear(String s){
-        title.setText("Elegir Velocidad de Juego: "+s);
-    }
-}

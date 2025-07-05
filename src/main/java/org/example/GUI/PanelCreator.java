@@ -8,7 +8,7 @@ public enum PanelCreator {
     BaseAcc(null,new Color(176,122,86),BorderFactory.createLineBorder(new Color(44,14,3),3)),
     PanVel(new BorderLayout(),PanelCreator.BaseAcc.bgC(),PanelCreator.BaseAcc.bdr()),
     PanMap(new GridBagLayout(),PanelCreator.BaseAcc.bgC(),PanelCreator.BaseAcc.bdr()),
-    VelTitle(new GridBagLayout(), new Color(224, 198, 99,125), null),
+    VelTitle(new GridBagLayout(), new Color(224, 198, 99,255), null),
     Acciones(new GridLayout(1,3,100,0),null,(BorderFactory.createLineBorder(new Color(10,10,10),4))),
     VelBotones(new GridLayout(2,2,30,10),new Color(0,0,0,0),BorderFactory.createLineBorder(new Color(0,0,0,0),5)),
     MascotaWrapper(new GridBagLayout(), new Color(255,200,200,255),BorderFactory.createLineBorder(Color.BLACK,3)),

@@ -12,13 +12,8 @@ public class VelocidadListener implements ActionListener {
     }
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton){
-            JButton clicked = (JButton) e.getSource();
+        if (e.getSource() instanceof JButton clicked){
             title.setText("Elegir Velocidad de Juego: "+clicked.getText());
-            System.out.println(Arrays.toString(title.getParent().getComponents()));
-
-            System.out.println(Arrays.toString(clicked.getParent().getComponents()));
-            System.out.println(Arrays.toString(clicked.getParent().getParent().getComponents()));
         }
     }
 }

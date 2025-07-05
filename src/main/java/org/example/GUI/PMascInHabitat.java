@@ -25,16 +25,14 @@ public class PMascInHabitat extends JPanel {
         mascota = m;
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
-        c.ipady=88;
-        c.ipadx=120;
-        c.weightx=1;
+        c.weightx=0.9;
+        c.weighty = 1;
         JPanel pmasc = new JPanel();
         pmasc.setBackground(new Color(0,0,0,0));
         this.add(pmasc,c);
         JPanel pstats = new JPanel(new GridBagLayout());
         pstats.setBorder(BorderFactory.createLineBorder(Color.black,3));
-        c.weightx=0.0;
-        c.ipadx=20;
+        c.weightx=0.1;
         this.add(pstats,c);
         c.ipadx=0;
         c.ipady=0;
@@ -79,10 +77,11 @@ public class PMascInHabitat extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(new ImageIcon(escogerImagen()).getImage(),30,15,null);
+        g.drawImage(new ImageIcon(escogerImagen(mascota)).getImage(),30,15,null);
         actualizarLabels();
+        actualizarBotones();
     }
-    private String escogerImagen(){
+    public static String escogerImagen(Mascota mascota){
         String base = "src/main/resources/";
         base += mascota.getTipo() + "_" + mascota.getAspecto()+"_";
         float sumaMax = mascota.atri.getFelicidad()+mascota.atri.getHambre()+mascota.atri.getHigiene()+mascota.atri.getSalud();
@@ -105,6 +104,12 @@ public class PMascInHabitat extends JPanel {
         stat2.setText("Higiene: "+mascota.higiene);
         stat3.setText("Salud: "+mascota.salud);
         stat4.setText("Felicidad: "+mascota.felicidad);
+    }
+    private void actualizarBotones(){
+        bAlimentar.setEnabled(mascota.hambre != mascota.atri.getHambre());
+        bLimpiar.setEnabled(mascota.higiene != mascota.atri.getHigiene());
+        bJugar.setEnabled(mascota.felicidad != mascota.atri.getFelicidad());
+        bCurar.setEnabled(mascota.salud != mascota.atri.getSalud());
     }
     /**Listener para los botones de acciones que tiene cada mascota*/
     private class AccionStatListener implements ActionListener {
@@ -133,10 +138,6 @@ public class PMascInHabitat extends JPanel {
         /**Vuelve a dejar disponible los botones y hace repaint a todo
          * el panel al terminar el timer*/
         public void actionPerformed(ActionEvent ae) {
-            bAlimentar.setEnabled(true);
-            bCurar.setEnabled(true);
-            bJugar.setEnabled(true);
-            bLimpiar.setEnabled(true);
             repaint();
         }
     }

@@ -28,22 +28,24 @@ abstract public class Mascota {
     //ACTIVIDADES
     public void jugar(String a){
         if(felicidad != this.atri.getFelicidad()) felicidad = felicidad + 20;
-        if(Objects.equals(a, atri.getJuego())) felicidad = felicidad + 10;}
+        if(Objects.equals(a, atri.getJuego())) felicidad = felicidad + 10;
+        felicidad = Math.min(felicidad,atri.getFelicidad());}
 
     public void alimentar(String a){
         hambre = hambre + 20;
         if(Objects.equals(a, atri.getComida())) hambre = hambre + 10;
-        if(hambre >= this.atri.getHambre()) hambre = this.atri.getHambre();
+        hambre = Math.min(hambre,atri.getHambre());
+
     }
 
     public void sanar(){
         salud = salud + 20;
-        if(salud != this.atri.getSalud()) salud = this.atri.getSalud();
+        salud = Math.min(salud,atri.getSalud());
     }
 
     public void limpiar(){
         higiene = higiene + 20;
-        if(higiene != this.atri.getHigiene()) higiene = this.atri.getHigiene();
+        higiene = Math.min(higiene,atri.getHigiene());
     }
     //ACTUALIZAR ESTADO
     public void update(){
@@ -77,6 +79,7 @@ abstract public class Mascota {
         //si es que "absorbio" el objeto entonces no se lo devuelve
         return null;
     }
+    public abstract Mascota clonar();
 
     @Override
     public String toString(){
@@ -93,6 +96,11 @@ class Perro extends Mascota{
         this.salud = atri.getSalud();
         this.felicidad = atri.getFelicidad();
     }
+
+    @Override
+    public Mascota clonar() {
+        return new Perro(this.nombre,this.ubicacion.toString(),this.aspecto);
+    }
 }
 
 class Pez extends Mascota{
@@ -102,6 +110,11 @@ class Pez extends Mascota{
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
         this.felicidad = atri.getFelicidad();
+    }
+
+    @Override
+    public Mascota clonar() {
+        return new Pez(this.nombre,this.ubicacion.toString(),this.aspecto);
     }
 }
 
