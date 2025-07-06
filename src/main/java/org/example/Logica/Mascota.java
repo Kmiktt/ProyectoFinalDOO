@@ -14,14 +14,23 @@ abstract public class Mascota {
     public PanelHabitat ubicacion;
     public int aspecto;
     public Atributos atri;
-    public Mascota(String s, String ubi, int skin, Atributos a){
+    public Mascota(String s, int skin, Atributos a){
         nombre = s;
         atri=a;
         aspecto = skin;
     }
+    public String getNombre(){
+        return nombre;
+    }
+
+    public String getHabitat(){
+        return atri.getHabitat();
+    }
+
     public String getTipo(){
         return atri.getEspecie();
     }
+
     public int getAspecto(){
         return aspecto;
     }
@@ -79,18 +88,17 @@ abstract public class Mascota {
         //si es que "absorbio" el objeto entonces no se lo devuelve
         return null;
     }
-    public abstract Mascota clonar();
 
-    @Override
-    public String toString(){
-        return (nombre+" || H: "+hambre+" - Hig: "+higiene + " - Sal:"+ salud + " - Fel: "+felicidad);
+    public void setNombre(String s){
+        nombre=s;
     }
 
+    public abstract Mascota clonar();
 }
 
 class Perro extends Mascota{
-    public Perro(String s, String u, int a){
-        super(s,u,a,Atributos.PERRO);
+    public Perro(String s, int a){
+        super(s,a,Atributos.PERRO);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
@@ -99,13 +107,13 @@ class Perro extends Mascota{
 
     @Override
     public Mascota clonar() {
-        return new Perro(this.nombre,this.ubicacion.toString(),this.aspecto);
+        return new Perro(this.nombre,this.aspecto);
     }
 }
 
 class Pez extends Mascota{
-    public Pez(String s, String u, int a){
-        super(s,u,a,Atributos.PEZ);
+    public Pez(String s, int a){
+        super(s,a,Atributos.PEZ);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
@@ -114,7 +122,7 @@ class Pez extends Mascota{
 
     @Override
     public Mascota clonar() {
-        return new Pez(this.nombre,this.ubicacion.toString(),this.aspecto);
+        return new Pez(this.nombre,this.aspecto);
     }
 }
 

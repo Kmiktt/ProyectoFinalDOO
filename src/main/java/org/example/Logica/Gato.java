@@ -1,8 +1,8 @@
 package org.example.Logica;
 
 public class Gato extends Mascota{
-    public Gato(String nombre, String ubicacion, int aspecto){
-        super(nombre,ubicacion,aspecto,Atributos.GATO);
+    public Gato(String s, int a){
+        super(s,a,Atributos.GATO);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();
@@ -10,6 +10,6 @@ public class Gato extends Mascota{
     }
     @Override
     public Mascota clonar() {
-        return new Gato(this.nombre,"test",this.aspecto);
+        return new Gato(this.nombre,this.aspecto);
     }
 }

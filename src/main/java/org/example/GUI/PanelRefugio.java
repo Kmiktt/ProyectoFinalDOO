@@ -15,7 +15,7 @@ public class PanelRefugio extends JPanel {
         super();
         mascotasLista = new ArrayList<>();
         mascotasDisponibles = new ArrayList<>();
-        mascotasDisponibles.add(new Gato("Test","Test",0));
+        mascotasDisponibles.add(new Gato("Test",0));
         this.setBorder(BorderFactory.createEmptyBorder(80,80,100,80));
         this.setBackground(new Color(100,100,255,255));
         this.setLayout(new GridBagLayout());
@@ -51,6 +51,8 @@ public class PanelRefugio extends JPanel {
             base.salud = (int) (base.atri.getSalud() * Math.random());
             mascotasLista.add(base);
             panelContenido.add(new subPanelMasc_Ref(mascotasLista.get(i)));
+
+
         }
     }
 }
