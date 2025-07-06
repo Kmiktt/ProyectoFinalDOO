@@ -52,48 +52,47 @@ public class subPanelMasc_Ref extends JPanel {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(new ImageIcon(PMascInHabitat.escogerImagen(m)).getImage(),30,15,null);
-        System.out.println(m);
     }
     private void abrirVentanaAdopcion() {
         // Crear una nueva ventana (JFrame)
         JFrame ventanaAdopcion = new JFrame("Adopción");
-        ventanaAdopcion.setSize(300, 150);
+        ventanaAdopcion.setSize(300, 130);
+        ventanaAdopcion.setTitle("Elige su nombre");
         ventanaAdopcion.setLocationRelativeTo(null); // Centrar la ventana
         ventanaAdopcion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
 
-        // Crear un panel para los botones
-        JPanel panelBotones = new JPanel();
-        panelBotones.setLayout(new FlowLayout());
+        // Crear un panel para organizar los componentes
+        JPanel panelAdopcion = new JPanel();
+        panelAdopcion.setLayout(new BorderLayout(10, 10)); // Espaciado entre componentes
 
-        // Crear el botón 1
-        JButton boton1 = new JButton("Adoptar Gato");
-        boton1.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(boton1.getText()); // Imprime el texto del botón
+        // Crear un campo de texto para ingresar el nombre
+        JTextField campoTexto = new JTextField();
+        campoTexto.setPreferredSize(new Dimension(200, 30)); // Tamaño preferido del campo
+        panelAdopcion.add(campoTexto, BorderLayout.CENTER); // Agregar el campo al panel
+
+        // Crear un botón "Adoptar"
+        JButton botonAdoptar = new JButton("Adoptar");
+        botonAdoptar.addActionListener(e -> {
+            String nombreIngresado = campoTexto.getText(); // Obtener el texto ingresado
+            if (!nombreIngresado.trim().isEmpty()||nombreIngresado.length()<15) { // Verificar que no esté vacío
+                System.out.println("Has adoptado a: " + nombreIngresado);
                 ventanaAdopcion.dispose(); // Cierra la ventana
+            } else {
+                JOptionPane.showMessageDialog(ventanaAdopcion, "Por favor, ingresa un nombre de <15 caracteres.");
             }
         });
 
-        // Crear el botón 2
-        JButton boton2 = new JButton("Adoptar Perro");
-        boton2.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println(boton2.getText()); // Imprime el texto del botón
-                ventanaAdopcion.dispose(); // Cierra la ventana
-            }
-        });
+        // Crear un panel para centrar el botón
+        JPanel panelInferior = new JPanel(new FlowLayout());
+        panelInferior.add(botonAdoptar);
+        panelAdopcion.add(panelInferior, BorderLayout.SOUTH); // Agregar el botón al panel
 
-        // Agregar los botones al panel
-        panelBotones.add(boton1);
-        panelBotones.add(boton2);
-
-        // Agregar el panel de botones a la nueva ventana
-        ventanaAdopcion.add(panelBotones);
+        // Agregar el panel principal a la ventana
+        ventanaAdopcion.add(panelAdopcion);
 
         // Hacer visible la ventana
         ventanaAdopcion.setVisible(true);
     }
+
 
 }

@@ -45,12 +45,10 @@ public class PanelRefugio extends JPanel {
         panelContenido.removeAll();
         for (int i = 0; i<4; i++){
             Mascota base = (mascotasDisponibles.get((int) ((Math.random()*100)%mascotasDisponibles.size()))).clonar();
-            System.out.println(base);
             base.felicidad = (int) (base.atri.getFelicidad() * Math.random());
             base.hambre = (int) (base.atri.getHambre() * Math.random());
             base.higiene = (int) (base.atri.getHigiene() * Math.random());
             base.salud = (int) (base.atri.getSalud() * Math.random());
-            System.out.println(base);
             mascotasLista.add(base);
             panelContenido.add(new subPanelMasc_Ref(mascotasLista.get(i)));
         }

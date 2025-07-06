@@ -18,18 +18,24 @@ public class PMascInHabitat extends JPanel {
     JButton bLimpiar;
     JButton bCurar;
     JButton bJugar;
+    int index;
+    PanelHabitat panelPadre;
 
-    public PMascInHabitat(Mascota m){
+    public PMascInHabitat(PanelHabitat pH, int i){
         super();
+        panelPadre = pH;
         PanelCreator.MascotaWrapper.update(this);
-        mascota = m;
+        mascota = pH.getHabitat().getMascota(i);
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.BOTH;
         c.weightx=0.9;
         c.weighty = 1;
-        JPanel pmasc = new JPanel();
+        JPanel pmasc = new JPanel(new BorderLayout(10,10));
         pmasc.setBackground(new Color(0,0,0,0));
         this.add(pmasc,c);
+        JButton mover = new JButton("Mover Mascota");
+        mover.addActionListener(e -> moverMascota());
+        pmasc.add(mover,BorderLayout.SOUTH);
         JPanel pstats = new JPanel(new GridBagLayout());
         pstats.setBorder(BorderFactory.createLineBorder(Color.black,3));
         c.weightx=0.1;
@@ -110,6 +116,10 @@ public class PMascInHabitat extends JPanel {
         bLimpiar.setEnabled(mascota.higiene != mascota.atri.getHigiene());
         bJugar.setEnabled(mascota.felicidad != mascota.atri.getFelicidad());
         bCurar.setEnabled(mascota.salud != mascota.atri.getSalud());
+    }
+    private void moverMascota(){
+        panelPadre.quitarMascota(index);
+        repaint();
     }
     /**Listener para los botones de acciones que tiene cada mascota*/
     private class AccionStatListener implements ActionListener {

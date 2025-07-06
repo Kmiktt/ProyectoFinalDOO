@@ -3,11 +3,12 @@ import java.util.ArrayList;
 public class Habitat implements TomaMascota {
     private ArrayList<Mascota> animales;
     private String tipo;
-    private int tamano;
-    public Habitat(String ti,int tamano){
+    private final int tamano = 6;
+    public Habitat(String ti){
+        animales = new ArrayList<>();
         tipo=ti;
     }
-    public Mascota getmascota(int i)
+    public Mascota getMascota(int i)
     {
          try{
              return animales.get(i);
@@ -17,7 +18,7 @@ public class Habitat implements TomaMascota {
          }
     }
 
-    public void darMascota(int i){
+    public Mascota darMascota(int i){
         Mascota a;
         try{
             a=animales.remove(i);
@@ -25,8 +26,10 @@ public class Habitat implements TomaMascota {
         catch (ArrayIndexOutOfBoundsException e){
             a=null;
         }
-        //aqui depende de que el Habitat haya sido creado despues de el usuario
-        //animales.add(Usuario.getInstance().tomarMascota(a));
+        return a;
+    }
+    public int size(){
+        return animales.size();
     }
 
     public Mascota agregarMascota(Mascota ma)
