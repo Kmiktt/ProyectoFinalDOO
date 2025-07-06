@@ -39,15 +39,16 @@ public class Tienda <T> {
         productos.add(a);
         preciosproductos.add(precio);
     }
-
     //le agrega un objeto especifico a un stock
     public void agregarStock(T a,int precio){
         stock.add(a);
         precios.add(precio);
     }
-
     public ArrayList<T> getStock(){
         return stock;
+    }
+    public ArrayList<T> getProductos(){
+        return productos;
     }
     public ArrayList<Integer> getPrecios(){
         return precios;
