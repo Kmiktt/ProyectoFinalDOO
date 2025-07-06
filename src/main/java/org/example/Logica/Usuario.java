@@ -51,6 +51,17 @@ public class Usuario {
         inventario.add(a);
     }
 
+    //cuenta cuantos de un objeto tienes con el string de su tipo
+    public int cuantoObjeto(String s){
+        int num=0;
+        for (int i = 0; i < inventario.size(); i++) {
+            if (inventario.get(i).getTipo().equals(s)){
+                num++;
+            }
+        }
+        return num;
+    }
+
     public ArrayList<Consumible> getInventario() {
         return inventario;
     }
@@ -82,4 +93,5 @@ public class Usuario {
     public Mascota getMascota(){
         return manomascota;
     }
+
 }
