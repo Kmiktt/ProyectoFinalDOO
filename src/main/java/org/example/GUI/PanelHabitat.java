@@ -3,11 +3,11 @@ package org.example.GUI;
 import org.example.Logica.Gato;
 import org.example.Logica.Habitat;
 import org.example.Logica.Mascota;
+import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class PanelHabitat extends JPanel {
     private Habitat habitat;
@@ -36,18 +36,20 @@ public class PanelHabitat extends JPanel {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(new ImageIcon("src/main/resources/fondotest.jpg").getImage(),0,0,null);
+        PanelInventario.actualizarDatos();
     }
     public void quitarMascota(int index){
-        if (PanelInventario.getMascotaAlmacenada()==null){
+        if (Usuario.getInstance().getMascota()==null){
             Mascota m = habitat.darMascota(index);
             this.remove(index);
             this.add(PanelCreator.Vacio.crear());
-            PanelInventario.setMascotaAlmacenada(m);
+            Usuario.getInstance().tomarMascota(m);
         }
+        revalidate();
         repaint();
     }
     public void addMascota(Mascota m){
-        m.ubicacion=this;
+        m.ubicacion=habitat;
         for (int i = habitat.size(); i<6; i++){this.remove(i);}
         habitat.agregarMascota(m);
         this.add(new PMascInHabitat(this, habitat.size()-1));

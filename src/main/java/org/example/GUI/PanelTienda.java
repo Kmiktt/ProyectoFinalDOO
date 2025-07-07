@@ -100,10 +100,14 @@ public class PanelTienda extends JPanel {
         super.paintComponent(g);
         labelDinero.setText("Dinero disponible: $"+Usuario.getInstance().getDinero());
         for (Component c : panelContenido.getComponents()) {
-            System.out.println(c.getX());
+            //System.out.println(c.getX());
         }
     }
     public void updatearTienda(){
-
+        tienda.actualizarStock(6);
+        this.removeAll();
+        crearPanelesDeProductos();
+        revalidate();
+        repaint();
     }
 }

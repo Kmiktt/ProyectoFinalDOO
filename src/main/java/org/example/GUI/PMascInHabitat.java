@@ -24,6 +24,7 @@ public class PMascInHabitat extends JPanel {
     public PMascInHabitat(PanelHabitat pH, int i){
         super();
         panelPadre = pH;
+        index = i;
         PanelCreator.MascotaWrapper.update(this);
         mascota = pH.getHabitat().getMascota(i);
         GridBagConstraints c = new GridBagConstraints();
