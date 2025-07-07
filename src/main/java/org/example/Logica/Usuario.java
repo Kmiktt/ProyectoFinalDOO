@@ -8,9 +8,11 @@ public class Usuario {
     private Mascota manomascota;
     private Consumible manoobjeto;
     private int dinero;
+    public int velocidad;
     private ArrayList<Consumible> inventario;
     private Usuario() {
         inventario= new ArrayList<Consumible>();
+        velocidad = 1;
     }
 
     public static Usuario getInstance() {
@@ -54,8 +56,8 @@ public class Usuario {
     //cuenta cuantos de un objeto tienes con el string de su tipo
     public int cuantoObjeto(String s){
         int num=0;
-        for (int i = 0; i < inventario.size(); i++) {
-            if (inventario.get(i).getTipo().equals(s)){
+        for (Consumible consumible : inventario) {
+            if (consumible.getTipo().equals(s)) {
                 num++;
             }
         }

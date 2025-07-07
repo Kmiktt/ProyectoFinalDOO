@@ -1,35 +1,39 @@
 package org.example.GUI;
 
+import org.example.Logica.Usuario;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class PanelVelocidad extends JPanel {
-    private JButton v1;
-    private JButton v2;
-    private JButton v4;
-    private JButton v8;
+public class PanelVelocidad extends JPanel implements Actualizable{
+    private JLabel titulo;
     public PanelVelocidad() {
         super();
         PanelCreator.PanVel.update(this);
         JPanel panelTitulo = PanelCreator.VelTitle.crear();
         JPanel panelDeBotones = PanelCreator.VelBotones.crear();
-        JLabel titulo = new JLabel("Elegir Velocidad de Juego");
-        titulo.setFont(new Font("Comic Sans MS", Font.PLAIN, 20));
+        titulo = new JLabel("Elegir Velocidad de Juego: x1");
+        titulo.setFont(new Font("Arial", Font.PLAIN, 20));
         this.add(panelDeBotones,BorderLayout.CENTER);
         this.add(panelTitulo,BorderLayout.NORTH);
         panelTitulo.add(titulo);
-        ActionListener vl = new VelocidadListener(titulo);
-        v1 = new ButtonVel("x1");
-        v2 = new ButtonVel("x2");
-        v4 = new ButtonVel("x4");
-        v8 = new ButtonVel("x8");
-        panelDeBotones.add(v1);
-        panelDeBotones.add(v2);
-        panelDeBotones.add(v4);
-        panelDeBotones.add(v8);
-        for (Component b : panelDeBotones.getComponents()){
-            if (b instanceof JButton){((JButton) b).addActionListener(vl);}
+        for(int i = 1; i<=8; i*=2){
+            JButton b = new JButton("x"+i);
+            int finalI = i;
+            b.addActionListener(e-> cambiarVelocidad(finalI));
+            b.setFocusPainted(false);
+            panelDeBotones.add(b);
         }
+    }
+    private void cambiarVelocidad(int vel){
+        Usuario.getInstance().velocidad=vel;
+        actualizar();
+    }
+
+    public void actualizar() {
+        titulo.setText("Elegir Velocidad de Juego: x"+Usuario.getInstance().velocidad);
+        revalidate();
+        repaint();
     }
 }
