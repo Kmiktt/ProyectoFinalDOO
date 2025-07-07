@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class PanelAcciones extends JPanel implements Actualizable {
+public class PanelAcciones extends JPanel implements Refreshable {
     private PanelVelocidad pVelocidad;
     private PanelInventario pInvententario;
     private JPanel pMapa;

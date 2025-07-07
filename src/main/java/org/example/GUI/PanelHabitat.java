@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class PanelHabitat extends JPanel {
+public class PanelHabitat extends JPanel implements Refreshable, TimeUpdatable{
     private Habitat habitat;
     public PanelHabitat(String tipo){
         super();
@@ -27,34 +27,49 @@ public class PanelHabitat extends JPanel {
         m3.hambre=40;
         habitat.agregarMascota(m2);
         habitat.agregarMascota(m3);
-        for (int i = 0; i<6; i++){
-            if(habitat.size()>i) {PMascInHabitat p = new PMascInHabitat(this, i); this.add(p);}
-            else {this.add(PanelCreator.Vacio.crear());}
-        }
+        crearPaneles();
     }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(new ImageIcon("src/main/resources/fondotest.jpg").getImage(),0,0,null);
-        PanelInventario.actualizarDatos();
     }
+    private void crearPaneles(){
+        this.removeAll();
+        for (int i = 0; i<6; i++){
+            if(habitat.size()>i) {
+                subPanelMasc_Hab p = new subPanelMasc_Hab(this, i); this.add(p);}
+            else {this.add(PanelCreator.Vacio.crear());}
+        }
+    }
+
     public void quitarMascota(int index){
         if (Usuario.getInstance().getMascota()==null){
             Mascota m = habitat.darMascota(index);
-            this.remove(index);
-            this.add(PanelCreator.Vacio.crear());
             Usuario.getInstance().tomarMascota(m);
+            crearPaneles();
         }
-        revalidate();
-        repaint();
+        actualizar();
     }
     public void addMascota(Mascota m){
         m.ubicacion=habitat;
-        for (int i = habitat.size(); i<6; i++){this.remove(i);}
         habitat.agregarMascota(m);
-        this.add(new PMascInHabitat(this, habitat.size()-1));
-        for (int i = habitat.size(); i<6; i++){this.add(PanelCreator.Vacio.crear());}
+        crearPaneles();
+        actualizar();
     }
     public Habitat getHabitat(){return habitat;}
+
+    public void actualizar() {
+        for (Component c : this.getComponents()) if (c instanceof Refreshable) ((Refreshable) c).actualizar();
+        revalidate();
+        repaint();
+    }
+
+    public void timeUpdate() {
+        for (int i=0; i<habitat.size(); i++){
+            habitat.getMascota(i).update();
+        }
+        actualizar();
+    }
 }
 

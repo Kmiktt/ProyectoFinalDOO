@@ -4,9 +4,8 @@ import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
-public class PanelVelocidad extends JPanel implements Actualizable{
+public class PanelVelocidad extends JPanel implements Refreshable {
     private JLabel titulo;
     public PanelVelocidad() {
         super();

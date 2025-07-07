@@ -9,7 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class PanelRefugio extends JPanel {
+public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     private JPanel panelContenido;
     private Refugio refugio;
     public boolean disponible;
@@ -61,15 +61,22 @@ public class PanelRefugio extends JPanel {
 
     public void adoptarMascota(String nombre,int index){
         refugio.adoptarAnimal(index, nombre);
-        System.out.println("pog?");
-        updatearVisual();
-        revalidate();
-        repaint();
+        actualizar();
     }
 
     public void actualizarStock(){
         refugio.actualizarStock(4);
+        actualizar();
+    }
+
+    public void actualizar() {
         updatearVisual();
         revalidate();
+        repaint();
+        PanelBase.actualizarPanelAcciones();
+    }
+
+    public void timeUpdate() {
+        actualizarStock();
     }
 }

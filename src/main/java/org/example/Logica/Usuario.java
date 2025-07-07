@@ -9,6 +9,7 @@ public class Usuario {
     private Consumible manoobjeto;
     private int dinero;
     public int velocidad;
+    public int comidaIndex=1;
     private ArrayList<Consumible> inventario;
     private Usuario() {
         inventario= new ArrayList<Consumible>();
@@ -62,6 +63,14 @@ public class Usuario {
             }
         }
         return num;
+    }
+    public void quitarObjeto(String g){
+        for (Consumible consumible : inventario) {
+            if (consumible.getTipo().equals(g)) {
+                inventario.remove(consumible);
+                break;
+            }
+        }
     }
 
     public ArrayList<Consumible> getInventario() {

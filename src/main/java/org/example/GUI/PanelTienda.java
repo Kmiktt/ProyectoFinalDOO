@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Arrays;
 
-public class PanelTienda extends JPanel {
+public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     private Tienda<Consumible> tienda;
     private JPanel panelContenido;
     private JLabel labelDinero;
@@ -92,8 +92,7 @@ public class PanelTienda extends JPanel {
             panelContenido.removeAll();
             crearPanelesDeProductos();
         }
-        revalidate();
-        repaint();
+        actualizar();
     }
     @Override
     protected void paintComponent(Graphics g){
@@ -107,7 +106,14 @@ public class PanelTienda extends JPanel {
         tienda.actualizarStock(6);
         this.removeAll();
         crearPanelesDeProductos();
+        actualizar();
+    }
+
+    public void actualizar() {
         revalidate();
         repaint();
+    }
+    public void timeUpdate() {
+        updatearTienda();
     }
 }

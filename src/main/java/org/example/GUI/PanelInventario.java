@@ -1,59 +1,97 @@
 package org.example.GUI;
 
-import org.example.Logica.Mascota;
-import org.example.Logica.Medicina;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
 
-public class PanelInventario extends JPanel implements Actualizable{
-    private JButton invent;
-    private static int indexComida;
-    static private JLabel comida;
-    private JLabel medicina;
-    private JLabel animal;
+public class PanelInventario extends JPanel implements Refreshable {
+    private final JLabel comida;
+    private final JLabel medicina;
+    private final JLabel animal;
+    private Usuario u;
     public PanelInventario(){
         super();
+        u = Usuario.getInstance();
         PanelCreator.BaseAcc.update(this);
-        JPanel test = new JPanel(new GridBagLayout());
-        test.setBackground(new Color(79,39,11));
         GridBagConstraints gbc = new GridBagConstraints();
-        indexComida=0;
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.weightx = 1;
-        gbc.weighty = 1;
+
+        JPanel pBase = new JPanel(new GridBagLayout());
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.weightx = 1; gbc.weighty = 1;
         gbc.fill = GridBagConstraints.BOTH;
-        test.add(new JLabel("",new ImageIcon("src/main/resources/arrow0.png"),SwingConstants.CENTER),gbc);
+        pBase.setBackground(new Color(79,39,11));
+        JLabel uArrow = new JLabel("",new ImageIcon("src/main/resources/arrow0.png"),SwingConstants.CENTER);
+        uArrow.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                u.comidaIndex++;
+                actualizar();
+            }
+        });
+        pBase.add(uArrow,gbc);
+
         JPanel espacio = new JPanel();
         gbc.gridy = 1;
         espacio.setPreferredSize(new Dimension(100, 80)); // Ancho = tamaño del JFrame, alto = 80px
-        espacio.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80)); // Limitar su tamaño máximo de alto
         espacio.setBackground(Color.LIGHT_GRAY); // (Opcional) Color para visualizar el espacio
-        String auxTipo = intToComidaString((indexComida)%3+1);
-        comida = new JLabel("x"+Usuario.getInstance().cuantoObjeto(auxTipo),new ImageIcon("src/main/resources/"+auxTipo+"_1.png"),SwingConstants.CENTER);
+        String auxTipo = intToComidaString(u.comidaIndex%3+1);
+        comida = new JLabel("x"+u.cuantoObjeto(auxTipo),new ImageIcon("src/main/resources/"+auxTipo+"_1.png"),SwingConstants.CENTER);
+        comida.setVerticalTextPosition(JLabel.BOTTOM);
+        comida.setHorizontalTextPosition(JLabel.CENTER);
+        comida.setVerticalAlignment(JLabel.BOTTOM);
         espacio.add(comida);
-        test.add(espacio,gbc);
-
+        pBase.add(espacio,gbc);
 
         gbc.gridy = 2;
-        test.add(new JLabel("",new ImageIcon("src/main/resources/arrow1.png"),SwingConstants.CENTER),gbc);
+        JLabel dArrow = new JLabel("",new ImageIcon("src/main/resources/arrow1.png"),SwingConstants.CENTER);
+        dArrow.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                u.comidaIndex--;
+                actualizar();
+            }
+        });
+        pBase.add(dArrow,gbc);
+
         JPanel espacio2 = new JPanel();
-        gbc.gridx = 2;
+        gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridheight=3;
-        espacio2.setPreferredSize(new Dimension(100, 80)); // Ancho = tamaño del JFrame, alto = 80px
-        espacio2.setMaximumSize(new Dimension(Integer.MAX_VALUE, 80)); // Limitar su tamaño máximo de alto
-        espacio2.setBackground(Color.LIGHT_GRAY); // (Opcional) Color para visualizar el espacio
-        test.add(espacio2,gbc);
-        this.add(test);
+        medicina = new JLabel("x"+Usuario.getInstance().cuantoObjeto("medicina"),new ImageIcon("src/main/resources/medicina_1.png"),SwingConstants.CENTER);
+        medicina.setVerticalTextPosition(JLabel.BOTTOM);
+        medicina.setHorizontalTextPosition(JLabel.CENTER);
+        medicina.setVerticalAlignment(JLabel.BOTTOM);
+        espacio2.setPreferredSize(new Dimension(100, 80));
+        espacio2.setBackground(new Color(210,210,210));
+        espacio2.setBorder(BorderFactory.createEmptyBorder(14,0,14,0));
+        espacio2.add(medicina);
+        pBase.add(espacio2,gbc);
+
+        gbc.gridx = 2;
+        JPanel espacio3 = new JPanel();
+        espacio3.setPreferredSize(new Dimension(100, 80));
+        espacio3.setBackground(Color.LIGHT_GRAY);
+        espacio3.setBorder(BorderFactory.createEmptyBorder(14,0,14,0));
+        animal = new JLabel();
+        animal.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (Usuario.getInstance().getMascota()!=null){
+                    checkearMascota();
+                }
+            }
+        });
+        espacio3.add(animal);
+        pBase.add(espacio3,gbc);
+        this.add(pBase);
 
     }
     private void checkearMascota(){
         System.out.println(Usuario.getInstance().getMascota().toString());
     }
-    private static String intToComidaString(int i){
+    public static String intToComidaString(int i){
         return switch (i) {
             case 0 -> "medicina";
             case 1 -> "comida_generica";
@@ -64,11 +102,18 @@ public class PanelInventario extends JPanel implements Actualizable{
     }
     public void actualizar() {
         actualizarDatos();
+        PanelBase.actualizarPanelActual();
         revalidate();
         repaint();
     }
-    static public void actualizarDatos(){
-        String auxTipo = intToComidaString((indexComida)%3+1);
-        comida = new JLabel("x"+Usuario.getInstance().cuantoObjeto(auxTipo),new ImageIcon("src/main/resources/"+auxTipo+"_1.png"),SwingConstants.CENTER);
+    public void actualizarDatos(){
+        String auxTipo = intToComidaString(u.comidaIndex%3+1);
+        comida.setText("x"+u.cuantoObjeto(auxTipo));
+        comida.setIcon(new ImageIcon("src/main/resources/"+auxTipo+"_1.png"));
+        medicina.setText("x"+u.cuantoObjeto("medicina"));
+        if (u.getMascota()!=null){
+            animal.setText(u.getMascota().nombre);
+            animal.setIcon(new ImageIcon("src/main/resources/icon_"+u.getMascota().getTipo()+".png"));
+        }
     }
 }

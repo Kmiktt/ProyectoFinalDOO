@@ -1,5 +1,5 @@
 package org.example.GUI;
 
-public interface Actualizable {
+public interface Refreshable {
     void actualizar();
 }

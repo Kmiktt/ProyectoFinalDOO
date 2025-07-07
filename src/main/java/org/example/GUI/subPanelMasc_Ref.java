@@ -4,8 +4,6 @@ import org.example.Logica.Mascota;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class subPanelMasc_Ref extends JPanel {
     private Mascota m;
@@ -56,46 +54,35 @@ public class subPanelMasc_Ref extends JPanel {
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        g.drawImage(new ImageIcon(PMascInHabitat.escogerImagen(m)).getImage(),30,15,null);
+        g.drawImage(new ImageIcon(subPanelMasc_Hab.escogerImagen(m)).getImage(),30,15,null);
         botonAdoptar.setEnabled(panelPadre.disponible);
     }
     private void abrirVentanaAdopcion() {
-        // Crear una nueva ventana (JFrame)
         JFrame ventanaAdopcion = new JFrame("Elige su nombre");
         ventanaAdopcion.setSize(300, 130);
-        ventanaAdopcion.setLocationRelativeTo(null); // Centrar la ventana
-        ventanaAdopcion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
-
-        // Crear un panel para organizar los componentes
+        ventanaAdopcion.setLocationRelativeTo(null);
+        ventanaAdopcion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         JPanel panelAdopcion = new JPanel();
-        panelAdopcion.setLayout(new BorderLayout(10, 10)); // Espaciado entre componentes
-
-        // Crear un campo de texto para ingresar el nombre
+        panelAdopcion.setLayout(new BorderLayout(10, 10));
         JTextField campoTexto = new JTextField();
-        campoTexto.setPreferredSize(new Dimension(200, 30)); // Tamaño preferido del campo
-        panelAdopcion.add(campoTexto, BorderLayout.CENTER); // Agregar el campo al panel
-
-        // Crear un botón "Adoptar"
+        campoTexto.setPreferredSize(new Dimension(200, 30));
+        panelAdopcion.add(campoTexto, BorderLayout.CENTER);
         JButton botonAdoptar = new JButton("Adoptar");
         botonAdoptar.addActionListener(e -> {
-            String nombreIngresado = campoTexto.getText(); // Obtener el texto ingresado
-            if (!nombreIngresado.trim().isEmpty()||nombreIngresado.length()<15) { // Verificar que no esté vacío
+            String nombreIngresado = campoTexto.getText();
+            if (!nombreIngresado.trim().isEmpty()&&nombreIngresado.length()<15) {
                 panelPadre.adoptarMascota(nombreIngresado, index);
-                ventanaAdopcion.dispose(); // Cierra la ventana
+                ventanaAdopcion.dispose();
             } else {
                 JOptionPane.showMessageDialog(ventanaAdopcion, "Por favor, ingresa un nombre de <15 caracteres.");
             }
         });
 
-        // Crear un panel para centrar el botón
         JPanel panelInferior = new JPanel(new FlowLayout());
         panelInferior.add(botonAdoptar);
         panelAdopcion.add(panelInferior, BorderLayout.SOUTH); // Agregar el botón al panel
 
-        // Agregar el panel principal a la ventana
         ventanaAdopcion.add(panelAdopcion);
-
-        // Hacer visible la ventana
         ventanaAdopcion.setVisible(true);
     }
 

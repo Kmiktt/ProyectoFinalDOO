@@ -1,6 +1,7 @@
 package org.example.GUI;
 
 import org.example.Logica.Mascota;
+import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Objects;
 
-public class PMascInHabitat extends JPanel {
+public class subPanelMasc_Hab extends JPanel implements Refreshable {
     Mascota mascota;
     JLabel stat1;
     JLabel stat2;
@@ -21,7 +22,7 @@ public class PMascInHabitat extends JPanel {
     int index;
     PanelHabitat panelPadre;
 
-    public PMascInHabitat(PanelHabitat pH, int i){
+    public subPanelMasc_Hab(PanelHabitat pH, int i){
         super();
         panelPadre = pH;
         index = i;
@@ -77,7 +78,7 @@ public class PMascInHabitat extends JPanel {
         c.gridx=1; pstats.add(bLimpiar,c);
         c.gridy=4; c.gridx=0; pstats.add(bCurar,c);
         c.gridx=1; pstats.add(bJugar,c);
-
+        actualizar();
 
 
     }
@@ -85,8 +86,6 @@ public class PMascInHabitat extends JPanel {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(new ImageIcon(escogerImagen(mascota)).getImage(),30,15,null);
-        actualizarLabels();
-        actualizarBotones();
     }
     public static String escogerImagen(Mascota mascota){
         String base = "src/main/resources/";
@@ -113,15 +112,25 @@ public class PMascInHabitat extends JPanel {
         stat4.setText("Felicidad: "+mascota.felicidad);
     }
     private void actualizarBotones(){
-        bAlimentar.setEnabled(mascota.hambre != mascota.atri.getHambre());
-        bLimpiar.setEnabled(mascota.higiene != mascota.atri.getHigiene());
-        bJugar.setEnabled(mascota.felicidad != mascota.atri.getFelicidad());
-        bCurar.setEnabled(mascota.salud != mascota.atri.getSalud());
+        Usuario u = Usuario.getInstance();
+        bAlimentar.setEnabled(mascota.hambre < mascota.atri.getHambre() && u.cuantoObjeto(PanelInventario.intToComidaString(u.comidaIndex%3+1))>0);
+        bLimpiar.setEnabled(mascota.higiene < mascota.atri.getHigiene());
+        bJugar.setEnabled(mascota.felicidad < mascota.atri.getFelicidad());
+        bCurar.setEnabled(mascota.salud < mascota.atri.getSalud() && u.cuantoObjeto("medicina")>0);
     }
     private void moverMascota(){
         panelPadre.quitarMascota(index);
+    }
+
+    @Override
+    public void actualizar() {
+        mascota = panelPadre.getHabitat().getMascota(index);
+        actualizarLabels();
+        actualizarBotones();
+        revalidate();
         repaint();
     }
+
     /**Listener para los botones de acciones que tiene cada mascota*/
     private class AccionStatListener implements ActionListener {
         /**Utiliza el texto del botón del que proviene el ActionEvent
@@ -133,13 +142,18 @@ public class PMascInHabitat extends JPanel {
             bCurar.setEnabled(false);
             bJugar.setEnabled(false);
             bLimpiar.setEnabled(false);
-            if (Objects.equals(ref, "Alimentar")) mascota.alimentar(mascota.atri.getComida());
+            Usuario u = Usuario.getInstance();
+            if (Objects.equals(ref, "Alimentar")) {mascota.alimentar(mascota.atri.getComida()); u.quitarObjeto(PanelInventario.intToComidaString(u.comidaIndex%3+1));}
             if (Objects.equals(ref, "Limpiar")) mascota.limpiar();
-            if (Objects.equals(ref,"Dar Medicina")) mascota.sanar();
-            if (Objects.equals(ref,"Jugar")) mascota.jugar(mascota.atri.getJuego());
+            if (Objects.equals(ref,"Dar Medicina") && u.cuantoObjeto("medicina")>0) mascota.sanar();
+            if (Objects.equals(ref,"Jugar")) {
+                mascota.jugar(mascota.atri.getJuego());
+                u.quitarObjeto("medicina");
+            }
             Timer t = new Timer(1200,null);
             t.addActionListener(new TimerAccionesListener());
             t.start();
+            PanelBase.actualizarPanelAcciones();
         }
     }
     /**Listener para el timer al presionar un botón, es una private class dentro
@@ -149,6 +163,7 @@ public class PMascInHabitat extends JPanel {
         /**Vuelve a dejar disponible los botones y hace repaint a todo
          * el panel al terminar el timer*/
         public void actionPerformed(ActionEvent ae) {
+            actualizar();
             repaint();
         }
     }

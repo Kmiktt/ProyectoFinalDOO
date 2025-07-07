@@ -13,9 +13,9 @@ public class PanelBase extends JPanel {
     static private PanelAcciones pAcciones;
     private PanelTienda pTienda;
     private PanelDesbloqueable pDesbloqueable;
-    private ArrayList<JPanel> paneles;
     private Usuario user;
-    private int index;
+    static private ArrayList<JPanel> paneles;
+    static private int index;
     public PanelBase(){
         super();
         user = Usuario.getInstance();
@@ -42,12 +42,19 @@ public class PanelBase extends JPanel {
         this.add(paneles.get(index), BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-
     }
     public void agregarPanel(JPanel p ){
         paneles.add(p);
     }
-    static public PanelAcciones getPanelAcciones(){
-        return pAcciones;
+    static public void actualizarPanelAcciones(){
+        pAcciones.actualizar();
+    }
+    static public void actualizarPanelActual(){
+        JPanel p = paneles.get(index);
+        if (p instanceof Refreshable) ((Refreshable) p).actualizar();
+    }
+
+    static JPanel getPanelActual(){
+        return paneles.get(index);
     }
 }

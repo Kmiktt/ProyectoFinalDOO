@@ -3,6 +3,7 @@ package org.example.Logica;
 import org.example.GUI.PanelHabitat;
 
 import java.util.Objects;
+import java.util.Random;
 
 abstract public class Mascota {
     public Consumible obj;
@@ -58,15 +59,11 @@ abstract public class Mascota {
     }
     //ACTUALIZAR ESTADO
     public void update(){
-        //nota: esta parte podría ser mejor, ESP
-        if(felicidad != 0) felicidad = felicidad - 3;
-        else felicidad = 0;
-        if(hambre != 0) hambre = hambre - 3;
-        else hambre = 0;
-        if(salud != 0) salud = salud - 3;
-        else salud = 0;
-        if(higiene != 0) higiene = higiene - 3;
-        else higiene = 0;
+        Random r = new Random();
+        felicidad = Math.max(felicidad-r.nextInt(1,r.nextInt(5)+2),0);
+        hambre = Math.max(hambre-r.nextInt(0,r.nextInt(10)+1),0);
+        if (r.nextInt(5)==4) salud = Math.max(salud-r.nextInt(5,15),0);
+        if(r.nextInt(3)==2) higiene = Math.max(higiene-r.nextInt(2,r.nextInt(3,10)),0);
     }
 
     //DARLE OBJETO
