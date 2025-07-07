@@ -9,8 +9,13 @@ import java.awt.event.ActionListener;
 
 public class subPanelMasc_Ref extends JPanel {
     private Mascota m;
-    public subPanelMasc_Ref(Mascota mascota){
+    private JButton botonAdoptar;
+    private PanelRefugio panelPadre;
+    private int index;
+    public subPanelMasc_Ref(Mascota mascota, int i, PanelRefugio p){
         super();
+        panelPadre = p;
+        index = i;
         PanelCreator.MascotaWrapper.update(this);
         m = mascota;
         GridBagConstraints c = new GridBagConstraints();
@@ -43,7 +48,7 @@ public class subPanelMasc_Ref extends JPanel {
         c.gridy=2;  pstats.add(stat2,c);
         c.gridy=3;  pstats.add(stat4,c);
         c.gridy=4;  pstats.add(stat3,c);
-        JButton botonAdoptar = new JButton("Adoptar "+m.getTipo());
+        botonAdoptar = new JButton("Adoptar "+m.getTipo());
         botonAdoptar.addActionListener(e -> abrirVentanaAdopcion());
         c.gridy=5;
         pstats.add(botonAdoptar,c);
@@ -52,12 +57,12 @@ public class subPanelMasc_Ref extends JPanel {
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         g.drawImage(new ImageIcon(PMascInHabitat.escogerImagen(m)).getImage(),30,15,null);
+        botonAdoptar.setEnabled(panelPadre.disponible);
     }
     private void abrirVentanaAdopcion() {
         // Crear una nueva ventana (JFrame)
-        JFrame ventanaAdopcion = new JFrame("Adopción");
+        JFrame ventanaAdopcion = new JFrame("Elige su nombre");
         ventanaAdopcion.setSize(300, 130);
-        ventanaAdopcion.setTitle("Elige su nombre");
         ventanaAdopcion.setLocationRelativeTo(null); // Centrar la ventana
         ventanaAdopcion.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // Cierra solo esta ventana
 
@@ -75,7 +80,7 @@ public class subPanelMasc_Ref extends JPanel {
         botonAdoptar.addActionListener(e -> {
             String nombreIngresado = campoTexto.getText(); // Obtener el texto ingresado
             if (!nombreIngresado.trim().isEmpty()||nombreIngresado.length()<15) { // Verificar que no esté vacío
-                System.out.println("Has adoptado a: " + nombreIngresado);
+                panelPadre.adoptarMascota(nombreIngresado, index);
                 ventanaAdopcion.dispose(); // Cierra la ventana
             } else {
                 JOptionPane.showMessageDialog(ventanaAdopcion, "Por favor, ingresa un nombre de <15 caracteres.");

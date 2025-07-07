@@ -11,7 +11,7 @@ abstract public class Mascota {
     public int higiene;
     public int salud;
     public int felicidad;
-    public PanelHabitat ubicacion;
+    public Habitat ubicacion;
     public int aspecto;
     public Atributos atri;
     public Mascota(String s, int skin, Atributos a){
@@ -94,6 +94,11 @@ abstract public class Mascota {
     }
 
     public abstract Mascota clonar();
+
+    @Override
+    public String toString() {
+        return nombre+" "+atri.getEspecie()+" : Hambre: "+ hambre+" - Higiene: "+higiene+" - Salud: "+salud+" - Felicidad: "+felicidad;
+    }
 }
 
 class Perro extends Mascota{

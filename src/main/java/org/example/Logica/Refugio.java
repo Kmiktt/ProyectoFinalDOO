@@ -14,46 +14,55 @@ public class Refugio{
     public void actualizarAnimales(){
         ArrayList<String> auxa= new ArrayList<String>();
         for (int i = 0; i < Habitat.getInstancias().size(); i++) {
-            if (Habitat.getInstancias().get(i).getTipo().equals("terrestre")){
-                auxa.add("perro");
-                auxa.add("gato");
-                continue;
-            }
-            if (Habitat.getInstancias().get(i).getTipo().equals("acuático")){
-                auxa.add("pez");
-                auxa.add("ajolote");
-                continue;
-            }
-            if (Habitat.getInstancias().get(i).getTipo().equals("aereo")){
-                auxa.add("pájaro");
-                //no se mas animales de aire
-                auxa.add("pterodáctilo");
+            switch (Habitat.getInstancias().get(i).getTipo()) {
+                case "terrestre" -> {
+                    auxa.add("perro");
+                    auxa.add("gato");
+                    continue;
+                }
+                case "acuático" -> {
+                    auxa.add("pez");
+                    auxa.add("ajolote");
+                    continue;
+                }
+                case "aereo" -> {
+                    auxa.add("pájaro");
+                    //no se mas animales de aire
+                    auxa.add("pterodáctilo");
+                }
             }
         }
         mascotas=auxa;
     }
 
-    public void actualizarStock(int tamano) {
+    public void actualizarStock(int size) {
         Random random = new Random();
         ArrayList<Mascota> auxa = new ArrayList<Mascota>();
         Mascota auxc;
         if(!mascotas.isEmpty()){
-            for (int i = 0; i < tamano; i++) {
+            for (int i = 0; i < size; i++) {
                 int l=random.nextInt(mascotas.size());
                 auxc = switch (mascotas.get(l)) {
                     //las mascotas son creadas con nombres placeholder
-                    case "gato" -> new Gato("kris", 1);
-                    case "perro" -> new Perro("susie", 1);
-                    case "pez" -> new Pez("ralsei", 1);
-                    default -> new Gato("noelle", 1);
+                    case "gato" -> new Gato("Kris", 0);
+                    case "perro" -> new Perro("Susie", 0);
+                    case "pez" -> new Pez("Ralsei", 0);
+                    default -> new Gato("Noelle", 0);
                 };
+                randomizarStat(auxc);
                 auxa.add(auxc);
             }
         }
         stock=auxa;
     }
+    private void randomizarStat(Mascota m){
+      Random random = new Random();
+      m.hambre = random.nextInt(m.atri.getHambre());
+      m.salud = random.nextInt(m.atri.getSalud());
+      m.higiene = random.nextInt(m.atri.getHigiene());
+      m.felicidad = random.nextInt(m.atri.getFelicidad());
+    }
     public void adoptarAnimal(int i,String nomb){
-        Mascota a=null;
         if (Usuario.getInstance().getMascota()==null) {
             stock.get(i).setNombre(nomb);
             Usuario.getInstance().tomarMascota(stock.remove(i));

@@ -2,20 +2,22 @@ package org.example.GUI;
 
 import org.example.Logica.Gato;
 import org.example.Logica.Mascota;
+import org.example.Logica.Refugio;
+import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelRefugio extends JPanel {
-    private ArrayList<Mascota> mascotasLista;
-    private ArrayList<Mascota> mascotasDisponibles;
     private JPanel panelContenido;
+    private Refugio refugio;
+    public boolean disponible;
     public PanelRefugio(){
         super();
-        mascotasLista = new ArrayList<>();
-        mascotasDisponibles = new ArrayList<>();
-        mascotasDisponibles.add(new Gato("Test",0));
+        refugio = new Refugio();
+        refugio.actualizarAnimales();
+        refugio.actualizarStock(4);
         this.setBorder(BorderFactory.createEmptyBorder(80,80,100,80));
         this.setBackground(new Color(100,100,255,255));
         this.setLayout(new GridBagLayout());
@@ -37,22 +39,37 @@ public class PanelRefugio extends JPanel {
         c.gridx = 1;
         c.weightx = 0.5; // 70% del ancho
         this.add(panelContenido, c);
-        updatear();
+        updatearVisual();
 
     }
-    public void updatear(){
-        while (!mascotasLista.isEmpty()) mascotasLista.removeFirst();
+    public void updatearVisual(){
         panelContenido.removeAll();
         for (int i = 0; i<4; i++){
-            Mascota base = (mascotasDisponibles.get((int) ((Math.random()*100)%mascotasDisponibles.size()))).clonar();
-            base.felicidad = (int) (base.atri.getFelicidad() * Math.random());
-            base.hambre = (int) (base.atri.getHambre() * Math.random());
-            base.higiene = (int) (base.atri.getHigiene() * Math.random());
-            base.salud = (int) (base.atri.getSalud() * Math.random());
-            mascotasLista.add(base);
-            panelContenido.add(new subPanelMasc_Ref(mascotasLista.get(i)));
-
-
+            if(refugio.getStock().size()<=i){
+                panelContenido.add(PanelCreator.Vacio.crear());
+                continue;
+            }
+            Mascota m = refugio.getStock().get(i);
+            panelContenido.add(new subPanelMasc_Ref(m,i,this));
         }
+    }
+    @Override
+    protected void paintComponent(Graphics g){
+        super.paintComponent(g);
+        disponible= Usuario.getInstance().getMascota()==null;
+    }
+
+    public void adoptarMascota(String nombre,int index){
+        refugio.adoptarAnimal(index, nombre);
+        System.out.println("pog?");
+        updatearVisual();
+        revalidate();
+        repaint();
+    }
+
+    public void actualizarStock(){
+        refugio.actualizarStock(4);
+        updatearVisual();
+        revalidate();
     }
 }
