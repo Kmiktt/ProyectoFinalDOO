@@ -6,19 +6,21 @@ import java.util.Objects;
 import java.util.Random;
 
 abstract public class Mascota {
-    public Consumible obj;
     public String nombre;
     public int hambre;
     public int higiene;
     public int salud;
     public int felicidad;
+    public int Fticks;
     public Habitat ubicacion;
     public int aspecto;
     public Atributos atri;
+
     public Mascota(String s, int skin, Atributos a){
         nombre = s;
         atri=a;
         aspecto = skin;
+        Fticks=0;
     }
     public String getNombre(){
         return nombre;
@@ -35,6 +37,26 @@ abstract public class Mascota {
     public int getAspecto(){
         return aspecto;
     }
+
+    //getters de stats
+    public int getHambre(){
+        return hambre;
+    }
+    public int getFelicidad() {
+        return felicidad;
+    }
+    public int getSalud() {
+        return salud;
+    }
+    public int getHigiene() {
+        return higiene;
+    }
+
+    public Atributos getAtri() {
+        return atri;
+    }
+
+
     //ACTIVIDADES
     public void jugar(String a){
         if(felicidad != this.atri.getFelicidad()) felicidad = felicidad + 20;
@@ -45,7 +67,6 @@ abstract public class Mascota {
         hambre = hambre + 20;
         if(Objects.equals(a, atri.getComida())) hambre = hambre + 10;
         hambre = Math.min(hambre,atri.getHambre());
-
     }
 
     public void sanar(){
@@ -64,8 +85,15 @@ abstract public class Mascota {
         hambre = Math.max(hambre-r.nextInt(0,r.nextInt(10)+1),0);
         if (r.nextInt(5)==4) salud = Math.max(salud-r.nextInt(5,15),0);
         if(r.nextInt(3)==2) higiene = Math.max(higiene-r.nextInt(2,r.nextInt(3,10)),0);
+        if (felicidad/atri.getFelicidad()>=0.6){
+            Fticks+=1;
+        }
+        else{
+            if (Fticks!=0){
+                Fticks-=1;
+            }
+        }
     }
-
     //DARLE OBJETO
     public Consumible tomarObjeto(Consumible o){
         //si es que es una medicina, si es usable entonces lo usa, sino se lo devuelve
@@ -84,6 +112,9 @@ abstract public class Mascota {
         }
         //si es que "absorbio" el objeto entonces no se lo devuelve
         return null;
+    }
+    public int getFticks(){
+        return Fticks;
     }
 
     public void setNombre(String s){
