@@ -31,12 +31,12 @@ public class ClienteMascota implements TomaMascota{
         //lo de los ticks hace que pueda perder hasta la mitad de el precio si es que el
         //cliente pierde la paciencia
         int mon=1000*((100-ticks)/100);
-        //le resta de 0 a 800 pesos a la cantidad de dinero que ganara el usuario dependiendo
+        //le resta de 0 a 400 pesos a la cantidad de dinero que ganara el usuario dependiendo
         //de que tan bien cuidada es la mascota
-        mon-=(1-ma.getSalud()/ma.getAtri().getSalud())*200;
-        mon-=(1-ma.getFelicidad()/ma.getAtri().getFelicidad())*200;
-        mon-=(1-ma.getHigiene()/ma.getAtri().getHigiene())*200;
-        mon-=(1-ma.getHambre()/ma.getAtri().getHambre())*200;
+        mon-=(1-ma.getSalud()/ma.getAtri().getSalud())*100;
+        mon-=(1-ma.getFelicidad()/ma.getAtri().getFelicidad())*100;
+        mon-=(1-ma.getHigiene()/ma.getAtri().getHigiene())*100;
+        mon-=(1-ma.getHambre()/ma.getAtri().getHambre())*100;
         //multiplicador dependiendo de por cuantos ticks a estado feliz
         mon=mon*((min(25,ma.getFticks())))/50;
         return mon;
