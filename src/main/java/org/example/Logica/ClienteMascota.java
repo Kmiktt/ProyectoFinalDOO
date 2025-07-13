@@ -1,4 +1,5 @@
 package org.example.Logica;
+import java.util.ArrayList;
 import java.util.Random;
 
 import static java.lang.Math.min;
@@ -6,9 +7,24 @@ import static java.lang.Math.min;
 public class ClienteMascota implements TomaMascota{
     private String tipo;
     private int ticks;
+    private ArrayList<String> mascotas;
     public ClienteMascota(){
+        mascotas = new ArrayList<String>();
         ActualizarMascota();
     }
+    //version que necesita menos mantención de el método que esta en refugio
+    public void actualizarAnimales(){
+        ArrayList<String> auxa= new ArrayList<String>();
+        for (int i = 0; i < Habitat.getInstancias().size(); i++) {
+            for (Atributos a:Atributos.values()){
+                if (a.getHabitat().equals(Habitat.getInstancias().get(i).getTipo())){
+                    auxa.add(a.getEspecie());
+                }
+            }
+        }
+        mascotas=auxa;
+    }
+
     public Mascota agregarMascota(Mascota ma)
     {
         if (!(ma.getTipo().equals(tipo))) {
@@ -20,28 +36,30 @@ public class ClienteMascota implements TomaMascota{
         }
     }
     //este metodo cambiara la mascota que quiere y reinicia su paciencia
-    public void ActualizarMascota(){
+    public void ActualizarMascota() throws NoHayHabitatsException{
+        actualizarAnimales();
         Random r = new Random();
-        Atributos[] atr=Atributos.values();
-        tipo=atr[r.nextInt(atr.length)].getEspecie();
-        ticks=0;
-    }
+        if (mascotas.isEmpty()){
+            throw new NoHayHabitatsException();
+        }
+        else {
+            tipo = mascotas.get(r.nextInt(mascotas.size()));
+            ticks = 0;
+        }
 
+        }
     public int cuantoPaga(Mascota ma){
-        //lo de los ticks hace que pueda perder hasta la mitad de el precio si es que el
-        //cliente pierde la paciencia
-        int mon=1000*((100-ticks)/100);
-        //le resta de 0 a 400 pesos a la cantidad de dinero que ganara el usuario dependiendo
-        //de que tan bien cuidada es la mascota
-        mon-=(1-ma.getSalud()/ma.getAtri().getSalud())*100;
-        mon-=(1-ma.getFelicidad()/ma.getAtri().getFelicidad())*100;
-        mon-=(1-ma.getHigiene()/ma.getAtri().getHigiene())*100;
-        mon-=(1-ma.getHambre()/ma.getAtri().getHambre())*100;
-        //multiplicador dependiendo de por cuantos ticks a estado feliz
-        mon=mon*((min(25,ma.getFticks())))/25;
-        return mon;
-    }
+        double mon = 1000 * ((100.0 - ticks) / 100.0);
 
+        mon -= (1-(double) ma.getSalud() / ma.getAtri().getSalud()) * 100;
+        mon -= (1-(double) ma.getFelicidad() / ma.getAtri().getFelicidad()) * 100;
+        mon -= (1-(double) ma.getHigiene() / ma.getAtri().getHigiene()) * 100;
+        mon -= (1-(double) ma.getHambre() / ma.getAtri().getHambre()) * 100;
+
+        mon *= Math.max(25.0, ma.getFticks()) / 25.0;
+
+        return (int) mon;
+    }
     public void update(){
         ticks+=1;
         if (ticks>=50){
