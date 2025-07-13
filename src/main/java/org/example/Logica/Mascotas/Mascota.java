@@ -8,7 +8,7 @@ import java.util.Objects;
 import java.util.Random;
 
 abstract public class Mascota {
-    public String nombre;
+    private String nombre;
     public int hambre;
     public int higiene;
     public int salud;
@@ -79,14 +79,17 @@ abstract public class Mascota {
         higiene = higiene + 20;
         higiene = Math.min(higiene,atri.getHigiene());
     }
-    //ACTUALIZAR ESTADO
+
+    /**Actualiza el estado a el siguiente siclo)
+     *
+     */
     public void update(){
         Random r = new Random();
         felicidad = Math.max(felicidad-r.nextInt(1,r.nextInt(5)+2),0);
         hambre = Math.max(hambre-r.nextInt(0,r.nextInt(10)+1),0);
         if (r.nextInt(5)==4) salud = Math.max(salud-r.nextInt(5,15),0);
         if(r.nextInt(3)==2) higiene = Math.max(higiene-r.nextInt(2,r.nextInt(3,10)),0);
-        if (felicidad/atri.getFelicidad()>=0.6){
+        if ((float)felicidad/(float)atri.getFelicidad()>=0.6){
             Fticks+=1;
         }
         else{
@@ -95,7 +98,11 @@ abstract public class Mascota {
             }
         }
     }
-    //DARLE OBJETO
+    /**La mascota recibe un objeto y lo procesa
+     * si es que no lo puede procesar entonces lo devuelve
+     * @param o El consumible que procesara
+     * @return  El consumible rechazado
+     */
     public Consumible tomarObjeto(Consumible o){
         //si es que es una medicina, si es usable entonces lo usa, sino se lo devuelve
         if (o.getTipo().equals("medicina")){
@@ -114,15 +121,28 @@ abstract public class Mascota {
         //si es que "absorbio" el objeto entonces no se lo devuelve
         return null;
     }
+
+    /**Retorna la cantidad de ciclos que ha estado con una felicidad alta
+     * @return la cantidad de ciclos que ha estado con una felicidad alta
+     */
     public int getFticks(){
         return Fticks;
     }
-
+    /**Asigna Nombre a la mascota
+     * @param s String del nombre
+     */
     public void setNombre(String s){
         nombre=s;
     }
-
-    public abstract Mascota clonar();
+    /** Vuelve cada atributo de la mascota un valor al azar en el rango del maximo
+     */
+    public void randomizarStat(){
+        Random random = new Random();
+        hambre = random.nextInt(atri.getHambre());
+        salud = random.nextInt(atri.getSalud());
+        higiene = random.nextInt(atri.getHigiene());
+        felicidad = random.nextInt(atri.getFelicidad());
+    }
 
     @Override
     public String toString() {

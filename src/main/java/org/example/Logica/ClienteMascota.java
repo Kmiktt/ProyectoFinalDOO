@@ -4,17 +4,18 @@ import org.example.Logica.Mascotas.Mascota;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Math.min;
-
 public class ClienteMascota implements TomaMascota{
     private String tipo;
     private int ticks;
     private ArrayList<String> mascotas;
+    /**Constructor de Objeto ClienteMascota
+     */
     public ClienteMascota(){
         mascotas = new ArrayList<String>();
         ActualizarMascota();
     }
-    //version que necesita menos mantención de el método que esta en refugio
+    /** Actualiza las especies de mascota que puede pedir el cliente
+     */
     public void actualizarAnimales(){
         ArrayList<String> auxa= new ArrayList<String>();
         for (int i = 0; i < Habitat.getInstancias().size(); i++) {
@@ -26,7 +27,10 @@ public class ClienteMascota implements TomaMascota{
         }
         mascotas=auxa;
     }
-
+    /** Recibe un animal para ver su precio
+     * @param ma la mascota que quieres depositar
+     * @return la mascota Rechazada
+     */
     public Mascota agregarMascota(Mascota ma)
     {
         if (!(ma.getTipo().equals(tipo))) {
@@ -37,7 +41,9 @@ public class ClienteMascota implements TomaMascota{
             return null;
         }
     }
-    //este metodo cambiara la mascota que quiere y reinicia su paciencia
+    /**Cambia la mascota que quiere y reinicia su paciencia
+     * @throws NoHayHabitatsException cuando no tiene Habitat entonces no hay mascotas que puedas vender
+     */
     public void ActualizarMascota() throws NoHayHabitatsException{
         actualizarAnimales();
         Random r = new Random();
@@ -48,8 +54,11 @@ public class ClienteMascota implements TomaMascota{
             tipo = mascotas.get(r.nextInt(mascotas.size()));
             ticks = 0;
         }
-
-        }
+    }
+    /** te retorna cuanto dinero te da el cliente por la mascota
+     * @param ma la mascota que quieres ofrecer
+     * @return la cantidad de dinero que te pagaria por la mascota
+     */
     public int cuantoPaga(Mascota ma){
         double mon = 200 * ((100.0 - ticks) / 100.0);
 
@@ -62,20 +71,31 @@ public class ClienteMascota implements TomaMascota{
 
         return (int) mon;
     }
+    /**
+     * actualiza el estado de el CLiente
+     */
     public void update(){
         ticks+=1;
         if (ticks>=50){
             ActualizarMascota();
         }
     }
-
+    /**Setter de la especie de mascota que el cliente quiere comprar
+     * @param s la especie de la mascota que el cliente quiere comprar
+     */
     public void setTipo(String s){
         tipo=s;
     }
-
+    /**Getter de la especie de mascota que el cliente quiere comprar
+     * @return la especie que la mascota quiere comprar
+     */
     public String getTipo(){
         return tipo;
     }
+
+    /**te retorna los ticks que a esperado el cliente
+     * @return los ticks que ha esperado el cliente
+     */
     public int getTicks(){
         return ticks;
     }

@@ -10,9 +10,4 @@ public class Perro extends Mascota {
         this.salud = atri.getSalud();
         this.felicidad = atri.getFelicidad();
     }
-
-    @Override
-    public Mascota clonar() {
-        return new Perro(this.nombre, this.aspecto);
-    }
 }

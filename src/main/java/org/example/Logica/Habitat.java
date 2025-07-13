@@ -69,6 +69,11 @@ public class Habitat implements TomaMascota {
     public static ArrayList<Habitat> getInstancias() {
         return instancias;
     }
+    /**Este método está por motivos de Prueba, reinicia la variable instancias
+     */
+    public static void resetInstancias() {
+        instancias.removeAll(instancias);
+    }
     /**Retorna que tipo de mascota recibe el habitat
      * @return string del tipo de habitat
      */
