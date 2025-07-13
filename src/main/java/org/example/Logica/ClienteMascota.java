@@ -38,7 +38,7 @@ public class ClienteMascota implements TomaMascota{
         mon-=(1-ma.getHigiene()/ma.getAtri().getHigiene())*100;
         mon-=(1-ma.getHambre()/ma.getAtri().getHambre())*100;
         //multiplicador dependiendo de por cuantos ticks a estado feliz
-        mon=mon*((min(25,ma.getFticks())))/50;
+        mon=mon*((min(25,ma.getFticks())))/25;
         return mon;
     }
 
@@ -47,6 +47,10 @@ public class ClienteMascota implements TomaMascota{
         if (ticks>=50){
             ActualizarMascota();
         }
+    }
+
+    public void setTipo(String s){
+        tipo=s;
     }
 
     public String getTipo(){
