@@ -61,7 +61,6 @@ public class Usuario {
         manoobjeto=masc.tomarObjeto(manoobjeto);
     }
     /** Agrega un objeto a el inventario
-     *
      * @param a El objeto que quieres agregar
      */
     public void agregarObjeto(Consumible a){
@@ -69,20 +68,24 @@ public class Usuario {
         inventario.sort(null);
     }
 
-    //cuenta cuantos de un objeto tienes con el string de su tipo
+    /**Cuenta cuantos objetos de un tipo tienes en el inventario
+     * @param s El tipo de objeto que quieres contar
+     * @return  la cantidad del objeto que tienes en el inventario
+     */
     public int cuantoObjeto(String s){
         int num=0;
         for (Consumible consumible : inventario) {
             if (consumible.getTipo().equals(s)) {
                 num++;
             }
+            else if (num>0){
+                break;
+            }
         }
         return num;
     }
-
-    /**
-     *
-     * @param g el tipo de objeto que quieres sacar del inventario
+    /**Elimina uno de un tipo de objeto del inventario
+     * @param g el tipo de objeto que quieres eliminar del inventario
      */
     public void quitarObjeto(String g){
         for (Consumible consumible : inventario) {
