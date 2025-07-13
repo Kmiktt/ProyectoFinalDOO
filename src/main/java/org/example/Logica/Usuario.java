@@ -1,8 +1,11 @@
 package org.example.Logica;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-//singleton
+/**Objeto que tiene todos los datos del Usuario, estos incluye dinero, inventario, objeto y mascota agarrados
+ * este objeto puede hacer distintas operaciones con los objetos en su inventario y en su mano
+ */
 public class Usuario {
     private static Usuario instancia;
     private Mascota manomascota;
@@ -25,6 +28,12 @@ public class Usuario {
         }
         return instancia;
     }
+    /** Esto resetea el singleton a uno nulo
+     *
+     */
+    public static void reset() {
+        instancia = null;
+    }
 
     /** Este metodo hace que el usuario agarre el objeto especificado por el parametro
      *
@@ -40,17 +49,18 @@ public class Usuario {
     /** Agarra un objeto que ya tenías guardado en tu inventario
      * si es que ya tenías un objeto en la mano, estos objetos son intercambiados
      * resultando en que el objeto que seleccionaste sea el objeto que agarres finalmente
-     * @param i el índice del objeto que quieres tomar del inventario
+     * @param i el String asociado del objeto que quieres tomar del inventario
      */
-    public void sacarInventario(int i){
-        Consumible a;
-        try{
-            a=inventario.remove(i);
+    public void sacarInventario(String i){
+        Consumible c=null;
+        for (Consumible consumible : inventario) {
+            if (consumible.getTipo().equals(i)) {
+                c=consumible;
+                inventario.remove(consumible);
+                break;
+            }
         }
-        catch (ArrayIndexOutOfBoundsException e){
-            a=null;
-        }
-        inventario.add(tomarObjeto(a));
+        agregarObjeto(tomarObjeto(c));
     }
 
     /** Le da el objeto que tienes en la mano a la mascota que quieras
@@ -65,6 +75,7 @@ public class Usuario {
      */
     public void agregarObjeto(Consumible a){
         inventario.add(a);
+        inventario.removeIf(Objects::isNull);
         inventario.sort(null);
     }
 
@@ -84,18 +95,6 @@ public class Usuario {
         }
         return num;
     }
-    /**Elimina uno de un tipo de objeto del inventario
-     * @param g el tipo de objeto que quieres eliminar del inventario
-     */
-    public void quitarObjeto(String g){
-        for (Consumible consumible : inventario) {
-            if (consumible.getTipo().equals(g)) {
-                inventario.remove(consumible);
-                break;
-            }
-        }
-    }
-
     /** Retorna la referencia a el Inventario del Usuario
      *
      * @return El ArrayList del inventario
@@ -129,7 +128,6 @@ public class Usuario {
     }
 
     /** El usuario agarra una mascota para moverla a algun otro lugar
-     *
      * @param a la mascota la cual quieres agarrar
      * @return  la misma mascota si es que esta fue rechazada por la mano
      */
