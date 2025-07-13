@@ -143,12 +143,19 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
             bJugar.setEnabled(false);
             bLimpiar.setEnabled(false);
             Usuario u = Usuario.getInstance();
-            if (Objects.equals(ref, "Alimentar")) {mascota.alimentar(mascota.atri.getComida()); u.quitarObjeto(PanelInventario.intToComidaString(u.comidaIndex%3+1));}
-            if (Objects.equals(ref, "Limpiar")) mascota.limpiar();
-            if (Objects.equals(ref,"Dar Medicina") && u.cuantoObjeto("medicina")>0) mascota.sanar();
+            if (Objects.equals(ref, "Alimentar")) {
+                u.sacarInventario(PanelInventario.intToComidaString(u.comidaIndex % 3 + 1));
+                u.darObjeto(mascota);
+            }
+            if (Objects.equals(ref, "Limpiar")) {
+                mascota.limpiar();
+            }
+            if (Objects.equals(ref,"Dar Medicina") && u.cuantoObjeto("medicina")>0) {
+                u.sacarInventario("medicina");
+                u.darObjeto(mascota);
+            }
             if (Objects.equals(ref,"Jugar")) {
                 mascota.jugar();
-                u.quitarObjeto("medicina");
             }
             Timer t = new Timer(1200,null);
             t.addActionListener(new TimerAccionesListener());
