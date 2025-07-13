@@ -16,25 +16,32 @@ public class Usuario {
         velocidad = 1;
     }
 
+    /**Esta es una implementation del patron de diseño SINGLETON
+     * lo vimos util para este proyecto, ya que siempre se espera que haya un solo usuario activo a la vez
+     * */
     public static Usuario getInstance() {
         if (instancia == null) {
             instancia = new Usuario();
         }
         return instancia;
     }
-    //TOMA UN OBJETO Y LO DEJA EN SU MANO
+
+    /** Este metodo hace que el usuario agarre el objeto especificado por el parametro
+     *
+     * @param o el objeto el cual quieres tener en la mano
+     * @return el objeto que tenia en la mano
+     */
     public Consumible tomarObjeto(Consumible o){
-        if (manoobjeto==null){
-            manoobjeto=o;
-            return null;
-        }
-        else {
             Consumible a=manoobjeto;
             manoobjeto=o;
             return a;
-        }
     }
-    //TOMA UN OBJETO DEL INVENTARIO Y LO DEJA EN SU MANO
+
+    /** Agarra un objeto que ya tenías guardado en tu inventario
+     * si es que ya tenías un objeto en la mano, estos objetos son intercambiados
+     * resultando en que el objeto que seleccionaste sea el objeto que agarres finalmente
+     * @param i el índice del objeto que quieres tomar del inventario
+     */
     public void sacarInventario(int i){
         Consumible a;
         try{
@@ -45,13 +52,21 @@ public class Usuario {
         }
         inventario.add(tomarObjeto(a));
     }
-    //LE DA UN OBJETO A UNA MASCOTA
+
+    /** Le da el objeto que tienes en la mano a la mascota que quieras
+     *
+     * @param masc la mascota a la cual quieres darle el objeto
+     */
     public void darObjeto(Mascota masc){
         manoobjeto=masc.tomarObjeto(manoobjeto);
     }
-
+    /** Agrega un objeto a el inventario
+     *
+     * @param a El objeto que quieres agregar
+     */
     public void agregarObjeto(Consumible a){
         inventario.add(a);
+        inventario.sort(null);
     }
 
     //cuenta cuantos de un objeto tienes con el string de su tipo
@@ -64,6 +79,11 @@ public class Usuario {
         }
         return num;
     }
+
+    /**
+     *
+     * @param g el tipo de objeto que quieres sacar del inventario
+     */
     public void quitarObjeto(String g){
         for (Consumible consumible : inventario) {
             if (consumible.getTipo().equals(g)) {
@@ -73,34 +93,64 @@ public class Usuario {
         }
     }
 
+    /** Retorna la referencia a el Inventario del Usuario
+     *
+     * @return El ArrayList del inventario
+     */
     public ArrayList<Consumible> getInventario() {
         return inventario;
     }
 
-    //aqui podria haber un assert de (noSuficienteDinero) o algo asi
-    public void restarDinero(int d){
-        dinero-=d;
+    /** Restas dinero del Usuario
+     * @param d la cantidad que quieres descontar a el dinero
+     */
+    public void restarDinero(int d) throws SinSuficienteDineroException{
+        if (dinero<d) {
+            throw new SinSuficienteDineroException();
+        }
+        else {
+            dinero -= d;
+        }
     }
-
+    /** Suma dinero a el Usuario
+     */
     public void recibirDinero(int d){
         dinero+=d;
     }
 
+    /**Retorna el dinero que le queda al usuario
+     * @return Dinero del Usuario
+     */
     public int getDinero(){
         return dinero;
     }
 
+    /** El usuario agarra una mascota para moverla a algun otro lugar
+     *
+     * @param a la mascota la cual quieres agarrar
+     * @return  la misma mascota si es que esta fue rechazada por la mano
+     */
     public Mascota tomarMascota(Mascota a){
         if (manomascota==null) {
             manomascota = a;
             return null;
         }
-        else return a;
+        else {
+            return a;
+        }
     }
 
+    /** Le da la mascota en mano al objeto que puede recibir una mascota
+     *  si es que el objeto se lo rechaza entonces esta mascota se devuelve a la mano
+     * @param toma El objeto que recibirá la mascota
+     */
     public void colocarMascota(TomaMascota toma){
         manomascota=toma.agregarMascota(manomascota);
     }
+
+    /**Retorna la mascota que el usuario tiene agarrada
+     * @return la mascota agarrada
+     */
     public Mascota getMascota(){
         return manomascota;
     }
