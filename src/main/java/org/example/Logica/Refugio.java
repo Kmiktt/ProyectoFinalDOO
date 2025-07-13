@@ -46,8 +46,11 @@ public class Refugio{
                     //las mascotas son creadas con nombres placeholder
                     case "gato" -> new Gato("Kris", 0);
                     case "perro" -> new Perro("Susie", 0);
-                    case "pez" -> new Pez("Ralsei", 0);
-                    default -> new Gato("Noelle", 0);
+                    case "pterodáctilo" -> new Pterodactilo("Ralsei", 0);
+                    case "ajolote" -> new Ajolote("Noelle", 0);
+                    case "pez" -> new Pez("Undyne", 0);
+                    case "pájaro" -> new Pez("Burghley", 0);
+                    default -> new Gato("December", 0);
                 };
                 randomizarStat(auxc);
                 auxa.add(auxc);
@@ -62,6 +65,7 @@ public class Refugio{
       m.higiene = random.nextInt(m.atri.getHigiene());
       m.felicidad = random.nextInt(m.atri.getFelicidad());
     }
+
     public void adoptarAnimal(int i,String nomb){
         if (Usuario.getInstance().getMascota()==null) {
             stock.get(i).setNombre(nomb);

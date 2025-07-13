@@ -41,7 +41,7 @@ public class Main {
                 case 3:
                     System.out.print("ingrese juego: \n");
                     preg = new Scanner(System.in);
-                    m.jugar(preg.nextLine());
+                    m.jugar();
                     break;
                 case 4: m.sanar();
                 default:

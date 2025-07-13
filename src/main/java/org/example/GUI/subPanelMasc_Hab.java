@@ -147,7 +147,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
             if (Objects.equals(ref, "Limpiar")) mascota.limpiar();
             if (Objects.equals(ref,"Dar Medicina") && u.cuantoObjeto("medicina")>0) mascota.sanar();
             if (Objects.equals(ref,"Jugar")) {
-                mascota.jugar(mascota.atri.getJuego());
+                mascota.jugar();
                 u.quitarObjeto("medicina");
             }
             Timer t = new Timer(1200,null);

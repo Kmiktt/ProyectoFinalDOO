@@ -1,10 +1,11 @@
 package org.example.Logica;
 
 public enum Atributos {
-    GATO("pescado","cazar","terrestre","gato", 80, 30, 70, 100),
-    PEZ("comida para peces", "burbujas","acuático", "pez",80, 40, 50, 80),
-    PERRO("carne", "palo", "terrestre", "perro", 90, 40, 60, 100);
-
+    GATO        ("pescado","cazar","terrestre","gato", 80, 30, 70, 100),
+    PEZ         ("comida para peces", "burbujas","acuático", "pez",80, 40, 50, 80),
+    PERRO       ("carne", "palo", "terrestre", "perro", 90, 40, 60, 100),
+    PTERODACTILO("carne", "palo", "terrestre", "pterodáctilo", 100, 20, 20, 90),
+    AJOLOTE     ("pescado", "palo", "acuático", "ajolote", 40, 100, 70, 90);
 
 
     private String comida;
