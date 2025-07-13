@@ -1,13 +1,11 @@
 package org.example.GUI;
 
-import org.example.Logica.Gato;
-import org.example.Logica.Mascota;
+import org.example.Logica.Mascotas.Mascota;
 import org.example.Logica.Refugio;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     private JPanel panelContenido;

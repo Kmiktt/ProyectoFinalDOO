@@ -1,5 +1,8 @@
 package org.example.Logica;
 
+import org.example.Logica.Consumibles.Consumible;
+import org.example.Logica.Mascotas.Mascota;
+
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -18,7 +21,6 @@ public class Usuario {
         inventario= new ArrayList<Consumible>();
         velocidad = 1;
     }
-
     /**Esta es una implementation del patron de diseño SINGLETON
      * lo vimos util para este proyecto, ya que siempre se espera que haya un solo usuario activo a la vez
      * */
@@ -29,23 +31,19 @@ public class Usuario {
         return instancia;
     }
     /** Esto resetea el singleton a uno nulo
-     *
      */
     public static void reset() {
-        instancia = null;
+        instancia=null;
     }
-
-    /** Este metodo hace que el usuario agarre el objeto especificado por el parametro
-     *
+    /** Este método hace que el usuario agarre el objeto especificado por el parameter
+     *  si es que ya tenia un objeto en mano este se guarda en el inventario y el objeto seleccionado lo reemplaza
      * @param o el objeto el cual quieres tener en la mano
-     * @return el objeto que tenia en la mano
      */
-    public Consumible tomarObjeto(Consumible o){
+    public void tomarObjeto(Consumible o){
             Consumible a=manoobjeto;
             manoobjeto=o;
-            return a;
+            agregarObjeto(a);
     }
-
     /** Agarra un objeto que ya tenías guardado en tu inventario
      * si es que ya tenías un objeto en la mano, estos objetos son intercambiados
      * resultando en que el objeto que seleccionaste sea el objeto que agarres finalmente
@@ -60,9 +58,8 @@ public class Usuario {
                 break;
             }
         }
-        agregarObjeto(tomarObjeto(c));
+        tomarObjeto(c);
     }
-
     /** Le da el objeto que tienes en la mano a la mascota que quieras
      *
      * @param masc la mascota a la cual quieres darle el objeto
@@ -78,7 +75,6 @@ public class Usuario {
         inventario.removeIf(Objects::isNull);
         inventario.sort(null);
     }
-
     /**Cuenta cuantos objetos de un tipo tienes en el inventario
      * @param s El tipo de objeto que quieres contar
      * @return  la cantidad del objeto que tienes en el inventario
@@ -95,13 +91,6 @@ public class Usuario {
         }
         return num;
     }
-    /** Retorna la referencia a el Inventario del Usuario
-     *
-     * @return El ArrayList del inventario
-     */
-    public ArrayList<Consumible> getInventario() {
-        return inventario;
-    }
 
     /** Restas dinero del Usuario
      * @param d la cantidad que quieres descontar a el dinero
@@ -115,18 +104,11 @@ public class Usuario {
         }
     }
     /** Suma dinero a el Usuario
+     * @param d la cantidad que quieres sumar a el dinero
      */
     public void recibirDinero(int d){
         dinero+=d;
     }
-
-    /**Retorna el dinero que le queda al usuario
-     * @return Dinero del Usuario
-     */
-    public int getDinero(){
-        return dinero;
-    }
-
     /** El usuario agarra una mascota para moverla a algun otro lugar
      * @param a la mascota la cual quieres agarrar
      * @return  la misma mascota si es que esta fue rechazada por la mano
@@ -140,7 +122,6 @@ public class Usuario {
             return a;
         }
     }
-
     /** Le da la mascota en mano al objeto que puede recibir una mascota
      *  si es que el objeto se lo rechaza entonces esta mascota se devuelve a la mano
      * @param toma El objeto que recibirá la mascota
@@ -149,11 +130,28 @@ public class Usuario {
         manomascota=toma.agregarMascota(manomascota);
     }
 
+    /**Retorna el dinero que le queda al usuario
+     * @return Dinero del Usuario
+     */
+    public int getDinero(){
+        return dinero;
+    }
     /**Retorna la mascota que el usuario tiene agarrada
      * @return la mascota agarrada
      */
     public Mascota getMascota(){
         return manomascota;
     }
-
+    /** Retorna la referencia a el Inventario del Usuario
+     * @return El ArrayList del inventario
+     */
+    public ArrayList<Consumible> getInventario() {
+        return inventario;
+    }
+    /**Retorna el objeto que el usuario tiene en la mano
+     * @return el objeto agarrado
+     */
+    public Consumible getMano(){
+        return manoobjeto;
+    }
 }

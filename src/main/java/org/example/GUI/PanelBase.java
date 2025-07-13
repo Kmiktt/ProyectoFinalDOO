@@ -1,6 +1,6 @@
 package org.example.GUI;
 
-import org.example.Logica.ComidaGenerica;
+import org.example.Logica.Consumibles.ComidaGenerica;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;

@@ -1,8 +1,10 @@
-package org.example.Logica;
+package org.example.Logica.Mascotas;
 
-public class Gato extends Mascota{
+import org.example.Logica.Atributos;
+
+public class Gato extends Mascota {
     public Gato(String s, int a){
-        super(s,a,Atributos.GATO);
+        super(s,a, Atributos.GATO);
         this.hambre = atri.getHambre();
         this.higiene = atri.getHigiene();
         this.salud = atri.getSalud();

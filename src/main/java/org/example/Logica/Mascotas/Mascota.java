@@ -1,6 +1,8 @@
-package org.example.Logica;
+package org.example.Logica.Mascotas;
 
-import org.example.GUI.PanelHabitat;
+import org.example.Logica.Atributos;
+import org.example.Logica.Consumibles.Consumible;
+import org.example.Logica.Habitat;
 
 import java.util.Objects;
 import java.util.Random;
@@ -125,66 +127,6 @@ abstract public class Mascota {
     @Override
     public String toString() {
         return nombre+" "+atri.getEspecie()+" : Hambre: "+ hambre+" - Higiene: "+higiene+" - Salud: "+salud+" - Felicidad: "+felicidad;
-    }
-}
-
-class Perro extends Mascota{
-    public Perro(String s, int a){
-        super(s,a,Atributos.PERRO);
-        this.hambre = atri.getHambre();
-        this.higiene = atri.getHigiene();
-        this.salud = atri.getSalud();
-        this.felicidad = atri.getFelicidad();
-    }
-
-    @Override
-    public Mascota clonar() {
-        return new Perro(this.nombre,this.aspecto);
-    }
-}
-
-class Pez extends Mascota{
-    public Pez(String s, int a){
-        super(s,a,Atributos.PEZ);
-        this.hambre = atri.getHambre();
-        this.higiene = atri.getHigiene();
-        this.salud = atri.getSalud();
-        this.felicidad = atri.getFelicidad();
-    }
-
-    @Override
-    public Mascota clonar() {
-        return new Pez(this.nombre,this.aspecto);
-    }
-}
-
-class Ajolote extends Mascota{
-    public Ajolote(String s, int a){
-        super(s,a,Atributos.AJOLOTE);
-        this.hambre = atri.getHambre();
-        this.higiene = atri.getHigiene();
-        this.salud = atri.getSalud();
-        this.felicidad = atri.getFelicidad();
-    }
-
-    @Override
-    public Mascota clonar() {
-        return new Pez(this.nombre,this.aspecto);
-    }
-}
-
-class Pterodactilo extends Mascota{
-    public Pterodactilo(String s, int a){
-        super(s,a,Atributos.PTERODACTILO);
-        this.hambre = atri.getHambre();
-        this.higiene = atri.getHigiene();
-        this.salud = atri.getSalud();
-        this.felicidad = atri.getFelicidad();
-    }
-
-    @Override
-    public Mascota clonar() {
-        return new Pez(this.nombre,this.aspecto);
     }
 }
 

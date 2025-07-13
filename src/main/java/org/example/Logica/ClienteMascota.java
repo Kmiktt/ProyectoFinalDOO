@@ -1,4 +1,6 @@
 package org.example.Logica;
+import org.example.Logica.Mascotas.Mascota;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -49,14 +51,14 @@ public class ClienteMascota implements TomaMascota{
 
         }
     public int cuantoPaga(Mascota ma){
-        double mon = 1000 * ((100.0 - ticks) / 100.0);
+        double mon = 200 * ((100.0 - ticks) / 100.0);
 
-        mon -= (1-(double) ma.getSalud() / ma.getAtri().getSalud()) * 100;
-        mon -= (1-(double) ma.getFelicidad() / ma.getAtri().getFelicidad()) * 100;
-        mon -= (1-(double) ma.getHigiene() / ma.getAtri().getHigiene()) * 100;
-        mon -= (1-(double) ma.getHambre() / ma.getAtri().getHambre()) * 100;
+        mon -= (1-(double) ma.getSalud() / ma.getAtri().getSalud()) * 20;
+        mon -= (1-(double) ma.getFelicidad() / ma.getAtri().getFelicidad()) * 20;
+        mon -= (1-(double) ma.getHigiene() / ma.getAtri().getHigiene()) * 20;
+        mon -= (1-(double) ma.getHambre() / ma.getAtri().getHambre()) * 20;
 
-        mon *= Math.max(25.0, ma.getFticks()) / 25.0;
+        mon *= Math.max(20.0, ma.getFticks()) / 20.0;
 
         return (int) mon;
     }

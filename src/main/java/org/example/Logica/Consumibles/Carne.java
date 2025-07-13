@@ -1,4 +1,4 @@
-package org.example.Logica;
+package org.example.Logica.Consumibles;
 
 public class Carne extends Consumible {
     public Carne(){

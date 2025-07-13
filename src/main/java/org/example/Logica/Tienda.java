@@ -3,8 +3,6 @@ package org.example.Logica;
 import java.util.ArrayList;
 import java.util.Random;
 
-import static java.lang.Math.abs;
-
 public class Tienda <T> {
     private ArrayList<T> stock;
     private ArrayList<T> productos;

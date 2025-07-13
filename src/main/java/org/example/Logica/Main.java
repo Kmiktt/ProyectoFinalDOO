@@ -1,6 +1,8 @@
 package org.example.Logica;
-import java.util.Scanner;
-
+import org.example.Logica.Mascotas.Gato;
+import org.example.Logica.Mascotas.Mascota;
+import org.example.Logica.Mascotas.Perro;
+import org.example.Logica.Mascotas.Pez;
 
 import java.util.Scanner;
 

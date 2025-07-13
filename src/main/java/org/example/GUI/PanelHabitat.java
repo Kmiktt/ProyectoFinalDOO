@@ -1,8 +1,8 @@
 package org.example.GUI;
 
-import org.example.Logica.Gato;
+import org.example.Logica.Mascotas.Gato;
 import org.example.Logica.Habitat;
-import org.example.Logica.Mascota;
+import org.example.Logica.Mascotas.Mascota;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;

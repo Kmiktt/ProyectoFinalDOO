@@ -1,5 +1,7 @@
 package org.example.Logica;
 
+import org.example.Logica.Mascotas.*;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -14,21 +16,9 @@ public class Refugio{
     public void actualizarAnimales(){
         ArrayList<String> auxa= new ArrayList<String>();
         for (int i = 0; i < Habitat.getInstancias().size(); i++) {
-            switch (Habitat.getInstancias().get(i).getTipo()) {
-                case "terrestre" -> {
-                    auxa.add("perro");
-                    auxa.add("gato");
-                    continue;
-                }
-                case "acuático" -> {
-                    auxa.add("pez");
-                    auxa.add("ajolote");
-                    continue;
-                }
-                case "aereo" -> {
-                    auxa.add("pájaro");
-                    //no se mas animales de aire
-                    auxa.add("pterodáctilo");
+            for (Atributos a:Atributos.values()){
+                if (a.getHabitat().equals(Habitat.getInstancias().get(i).getTipo())){
+                    auxa.add(a.getEspecie());
                 }
             }
         }

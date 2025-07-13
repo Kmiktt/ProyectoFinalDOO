@@ -1,4 +1,4 @@
-package org.example.Logica;
+package org.example.Logica.Consumibles;
 
 public abstract class Consumible implements Comparable<Consumible>{
     private String tipo;

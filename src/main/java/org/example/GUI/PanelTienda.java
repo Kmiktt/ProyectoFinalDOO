@@ -1,11 +1,11 @@
 package org.example.GUI;
 
 import org.example.Logica.*;
+import org.example.Logica.Consumibles.*;
 import org.example.Logica.Tienda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Arrays;
 
 public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     private Tienda<Consumible> tienda;

@@ -1,5 +1,7 @@
 package org.example.Logica;
 
+import org.example.Logica.Mascotas.Perro;
+
 public class MainCliente {
     public static void main(String[] args) {
         Usuario u=Usuario.getInstance();

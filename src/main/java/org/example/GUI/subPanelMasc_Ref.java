@@ -1,6 +1,6 @@
 package org.example.GUI;
 
-import org.example.Logica.Mascota;
+import org.example.Logica.Mascotas.Mascota;
 
 import javax.swing.*;
 import java.awt.*;

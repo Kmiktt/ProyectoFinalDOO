@@ -1,6 +1,6 @@
 package org.example.Logica;
 
-import java.util.ArrayList;
+import org.example.Logica.Consumibles.*;
 
 public class MainTienda {
     public static void main(String[] args) {

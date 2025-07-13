@@ -1,4 +1,6 @@
 package org.example.Logica;
+import org.example.Logica.Mascotas.Mascota;
+
 import java.util.ArrayList;
 public class Habitat implements TomaMascota {
     private ArrayList<Mascota> animales;
