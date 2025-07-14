@@ -7,11 +7,11 @@ import java.awt.*;
 
 public class PanelDesbloqueable extends JPanel implements Refreshable {
     private int precio;
-    private JButton b1;
-    private JButton b2;
-    private JButton b3;
-    private JLabel lb2;
-    private PanelBase pb;
+    private final JButton b1;
+    private final JButton b2;
+    private final JButton b3;
+    private final JLabel lb2;
+    private final PanelBase pb;
     public PanelDesbloqueable(PanelBase padre) {
         super();
         precio = 100;
@@ -34,13 +34,13 @@ public class PanelDesbloqueable extends JPanel implements Refreshable {
         pl2.setBorder(BorderFactory.createEmptyBorder(40,40,40,40));
         b1 = new JButton("Desbloquear Habitat Terrestre",new ImageIcon("src/main/resources/iconterrestre.png"));
         b1.setFont(new Font("Arial",Font.PLAIN,20));
-        b1.addActionListener(e -> desbloquear("terrestre"));
+        b1.addActionListener(_ -> desbloquear("terrestre"));
         b2 = new JButton("Desbloquear Habitat Acuatico",new ImageIcon("src/main/resources/iconacuatico.png"));
         b2.setFont(new Font("Arial",Font.PLAIN,20));
-        b2.addActionListener(e -> desbloquear("acuatico"));
+        b2.addActionListener(_ -> desbloquear("acuatico"));
         b3 = new JButton("Desbloquear Habitat Aereo",new ImageIcon("src/main/resources/iconaereo.png"));
         b3.setFont(new Font("Arial",Font.PLAIN,20));
-        b3.addActionListener(e -> desbloquear("aereo"));
+        b3.addActionListener(_ -> desbloquear("aereo"));
         pl2.add(b1);
         pl2.add(b2);
         pl2.add(b3);

@@ -37,7 +37,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
         pmasc.setBackground(new Color(0,0,0,0));
         this.add(pmasc,c);
         bMover = new JButton("Mover Mascota");
-        bMover.addActionListener(e -> moverMascota());
+        bMover.addActionListener(_ -> moverMascota());
         pmasc.add(bMover,BorderLayout.SOUTH);
         JPanel pstats = new JPanel(new GridBagLayout());
         pstats.setBorder(BorderFactory.createLineBorder(Color.black,3));

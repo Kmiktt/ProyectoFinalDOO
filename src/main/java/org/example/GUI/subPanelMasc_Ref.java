@@ -6,10 +6,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class subPanelMasc_Ref extends JPanel {
-    private Mascota m;
-    private JButton botonAdoptar;
-    private PanelRefugio panelPadre;
-    private int index;
+    private final Mascota m;
+    private final JButton botonAdoptar;
+    private final PanelRefugio panelPadre;
+    private final int index;
     public subPanelMasc_Ref(Mascota mascota, int i, PanelRefugio p){
         super();
         panelPadre = p;
@@ -47,7 +47,7 @@ public class subPanelMasc_Ref extends JPanel {
         c.gridy=3;  pstats.add(stat4,c);
         c.gridy=4;  pstats.add(stat3,c);
         botonAdoptar = new JButton("Adoptar "+m.getTipo());
-        botonAdoptar.addActionListener(e -> abrirVentanaAdopcion());
+        botonAdoptar.addActionListener(_ -> abrirVentanaAdopcion());
         c.gridy=5;
         pstats.add(botonAdoptar,c);
     }
@@ -68,7 +68,7 @@ public class subPanelMasc_Ref extends JPanel {
         campoTexto.setPreferredSize(new Dimension(200, 30));
         panelAdopcion.add(campoTexto, BorderLayout.CENTER);
         JButton botonAdoptar = new JButton("Adoptar");
-        botonAdoptar.addActionListener(e -> {
+        botonAdoptar.addActionListener(_ -> {
             String nombreIngresado = campoTexto.getText();
             if (!nombreIngresado.trim().isEmpty()&&nombreIngresado.length()<15) {
                 panelPadre.adoptarMascota(nombreIngresado, index);

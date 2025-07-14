@@ -1,7 +1,7 @@
 package org.example.Logica.Consumibles;
 
 public abstract class Consumible implements Comparable<Consumible>{
-    private String tipo;
+    private final String tipo;
     /**Constructor de Objeto Consumible
      * @param t String del tipo de objeto
      */

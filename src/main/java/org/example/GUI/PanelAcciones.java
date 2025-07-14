@@ -6,10 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class PanelAcciones extends JPanel implements Refreshable {
-    private PanelVelocidad pVelocidad;
-    private PanelInventario pInvententario;
-    private JPanel pMapa;
-    private PanelBase pFather;
+    private final PanelVelocidad pVelocidad;
+    private final PanelInventario pInvententario;
+    private final PanelBase pFather;
     public PanelAcciones(PanelBase father){
         super();
         pFather= father;
@@ -19,7 +18,7 @@ public class PanelAcciones extends JPanel implements Refreshable {
         pInvententario = new PanelInventario();
         this.add(pInvententario);
 
-        pMapa = PanelCreator.PanMap.crear();
+        JPanel pMapa = PanelCreator.PanMap.crear();
         this.add(pMapa);
         JButton mapa = new JButton("Cambiar Sala");
         mapa.addActionListener(new MapaListener());

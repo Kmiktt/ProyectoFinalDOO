@@ -11,18 +11,18 @@ public enum Atributos {
     AJOLOTE     ("pescado", "palo", "acuatico", "ajolote", 40, 100, 70, 90);
 
 
-    private String comida;
-    private String juego;
-    private String habitat;
-    private String especie;
-    private int hambre;
-    private int higiene;
-    private int salud;
-    private int felicidad;
+    private final String comida;
+    private final String j;
+    private final String habitat;
+    private final String especie;
+    private final int hambre;
+    private final int higiene;
+    private final int salud;
+    private final int felicidad;
 
     Atributos(String c, String j,String h,String e, int ha, int hi, int sa, int fe){
         this.comida = c;
-        this.juego = j;
+        this.j = j;
         this.habitat = h;
         this.especie = e;
         this.hambre = ha;
@@ -33,9 +33,6 @@ public enum Atributos {
 
     public String getComida(){
         return comida;
-    }
-    public String getJuego(){
-        return juego;
     }
     public String getHabitat(){
         return habitat;

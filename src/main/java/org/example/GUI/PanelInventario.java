@@ -1,21 +1,18 @@
 package org.example.GUI;
 
-import org.example.Logica.Mascotas.Mascota;
 import org.example.Logica.TomaMascota;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 public class PanelInventario extends JPanel implements Refreshable {
     private final JLabel comida;
     private final JLabel medicina;
     private final JLabel animal;
-    private JButton botonEntregar;
-    private Usuario u;
+    private final JButton botonEntregar;
+    private final Usuario u;
     public PanelInventario(){
         super();
         u = Usuario.getInstance();
@@ -82,7 +79,8 @@ public class PanelInventario extends JPanel implements Refreshable {
         espacio3.setBorder(BorderFactory.createEmptyBorder(14,0,14,0));
         animal = new JLabel();
         animal.setHorizontalTextPosition(JLabel.CENTER);
-        animal.setVerticalTextPosition(JLabel.BOTTOM);
+        animal.setVerticalTextPosition(JLabel.TOP);
+        animal.setVerticalAlignment(JLabel.TOP);
         animal.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -95,7 +93,7 @@ public class PanelInventario extends JPanel implements Refreshable {
         pBase.add(espacio3,gbc);
         botonEntregar = new JButton("Entregar");
         botonEntregar.setFocusPainted(false);
-        botonEntregar.addActionListener(e -> entregarMascota());
+        botonEntregar.addActionListener(_ -> entregarMascota());
         gbc.gridy=2;
         gbc.gridheight=1;
         pBase.add(botonEntregar,gbc);
@@ -138,8 +136,7 @@ public class PanelInventario extends JPanel implements Refreshable {
     private void entregarMascota(){
         TomaMascota tm = (TomaMascota) PanelBase.getPanelActual();
         Usuario.getInstance().colocarMascota(tm);
-        System.out.println(Usuario.getInstance().getMascota());
-        actualizarDatos();
         PanelBase.actualizarPanelActual();
+        actualizar();
     }
 }

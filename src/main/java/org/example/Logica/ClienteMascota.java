@@ -84,7 +84,8 @@ public class ClienteMascota implements TomaMascota{
             ActualizarMascota();
         }
         if (ticks >= 50 && tipo != null && r.nextInt(100)<5){
-
+            tipo= null;
+            ticks=0;
         }
     }
     /**Setter de la especie de mascota que el cliente quiere comprar
@@ -98,12 +99,5 @@ public class ClienteMascota implements TomaMascota{
      */
     public String getTipo(){
         return tipo;
-    }
-
-    /**te retorna los ticks que a esperado el cliente
-     * @return los ticks que ha esperado el cliente
-     */
-    public int getTicks(){
-        return ticks;
     }
 }
