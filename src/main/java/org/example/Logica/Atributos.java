@@ -6,7 +6,7 @@ public enum Atributos {
     GATO        ("pescado","cazar","terrestre","gato", 80, 30, 70, 100),
     PEZ         ("krill", "burbujas","acuatico", "pez",80, 40, 50, 80),
     PERRO       ("carne", "palo", "terrestre", "perro", 90, 40, 60, 100),
-    PTERODACTILO("carne", "palo", "aereo", "pterodáctilo", 100, 20, 20, 90),
+    PTERODACTILO("carne", "palo", "aereo", "pterodactilo", 100, 20, 20, 90),
     CANARIO("krill", "palo", "aereo", "canario", 50, 200, 50, 170),
     AJOLOTE     ("pescado", "palo", "acuatico", "ajolote", 40, 100, 70, 90);
 
