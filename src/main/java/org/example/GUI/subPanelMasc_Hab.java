@@ -146,7 +146,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
             bLimpiar.setEnabled(false);
             Usuario u = Usuario.getInstance();
             if (Objects.equals(ref, "Alimentar")) {
-                u.sacarInventario(PanelInventario.intToComidaString(u.comidaIndex % 3 + 1));
+                u.sacarInventario(PanelInventario.intToComidaString(u.comidaIndex % 4 + 1));
                 u.darObjeto(mascota);
             }
             if (Objects.equals(ref, "Limpiar")) {
