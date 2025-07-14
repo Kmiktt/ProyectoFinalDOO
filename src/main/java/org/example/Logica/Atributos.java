@@ -31,17 +31,39 @@ public enum Atributos {
         this.felicidad = fe;
     }
 
+    /**
+     * @return la comida favorita del Animal
+     */
     public String getComida(){
         return comida;
     }
+
+    /**
+     * @return el tipo de Habitat en donde vive
+     */
     public String getHabitat(){
         return habitat;
     }
+    /**
+     * @return El nombre de la especie
+     */
     public String getEspecie(){
         return especie;
     }
+    /**
+     * @return el Hambre maxima que puede tener la epecie
+     */
     public int getHambre(){return hambre;}
+    /**
+     * @return el Higiene maxima que puede tener la epecie
+     */
     public int getHigiene(){return higiene;}
+    /**
+     * @return la Salud maxima que puede tener la epecie
+     */
     public int getSalud(){return salud;}
+    /**
+     * @return la Felicidad maxima que puede tener la epecie
+     */
     public int getFelicidad(){return felicidad;}
 }
