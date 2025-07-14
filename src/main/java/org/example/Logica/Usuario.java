@@ -18,7 +18,7 @@ public class Usuario {
     public int comidaIndex=1;
     private ArrayList<Consumible> inventario;
     private Usuario() {
-        inventario= new ArrayList<Consumible>();
+        inventario= new ArrayList<>();
         velocidad = 1;
     }
     /**Esta es una implementation del patron de diseño SINGLETON
@@ -92,8 +92,9 @@ public class Usuario {
         return num;
     }
 
-    /** Restas dinero del Usuario
+    /**Restas dinero del Usuario
      * @param d la cantidad que quieres descontar a el dinero
+     * @throws SinSuficienteDineroException Si es que no hay suficiente dinero para descontar
      */
     public void restarDinero(int d) throws SinSuficienteDineroException{
         if (dinero<d) {

@@ -18,70 +18,94 @@ abstract public class Mascota {
     public int aspecto;
     public Atributos atri;
 
+    /**Constructor del Objeto Mascota
+     * @param s Nombre de la mascota
+     * @param skin numero de apariencia
+     * @param a Atributos de la especie
+     */
     public Mascota(String s, int skin, Atributos a){
         nombre = s;
         atri=a;
         aspecto = skin;
         Fticks=0;
     }
+    /**Getter del Nombre
+     * @return String del Nombre
+     */
     public String getNombre(){
         return nombre;
     }
-
+    /**Getter del tipo Habitat
+     * @return String del tipo de Habitat
+     */
     public String getHabitat(){
         return atri.getHabitat();
     }
-
+    /**Getter de Especie
+     * @return String de la especie
+     */
     public String getTipo(){
         return atri.getEspecie();
     }
-
+    /**Getter del Aspecto
+     * @return numero de Apariencia
+     */
     public int getAspecto(){
         return aspecto;
     }
-
-    //getters de stats
+    /**Getter de la stat de Hambre
+     * @return valor de Hambre
+     */
     public int getHambre(){
         return hambre;
     }
+    /**Getter de la stat de felicidad
+     * @return valor de felicidad
+     */
     public int getFelicidad() {
         return felicidad;
     }
+    /**Getter de la stat de salud
+     * @return valor de salud
+     */
     public int getSalud() {
         return salud;
     }
+    /**Getter de la stat de Higiene
+     * @return valor de Higiene
+     */
     public int getHigiene() {
         return higiene;
     }
-
+    /**Getter de los Atributos de la especie
+     * @return Atributos de la Especie en forma de Enum
+     */
     public Atributos getAtri() {
         return atri;
     }
-
-
-    //ACTIVIDADES
-    public void jugar(){
-        felicidad = felicidad + 30;
-        felicidad = Math.min(felicidad,atri.getFelicidad());}
-
-    public void alimentar(String a){
+    //estos dos métodos son llamados internamente por tomarObjeto, ya que asi procesa los consumibles
+    private void alimentar(String a){
         hambre = hambre + 20;
         if(Objects.equals(a, atri.getComida())) hambre = hambre + 10;
         hambre = Math.min(hambre,atri.getHambre());
     }
-
-    public void sanar(){
+    private void sanar(){
         salud = salud + 20;
         salud = Math.min(salud,atri.getSalud());
     }
 
+    /**Aumenta la estadística de felicidad
+     */
+    public void jugar(){
+        felicidad = felicidad + 30;
+        felicidad = Math.min(felicidad,atri.getFelicidad());}
+    /**Aumenta la estadística de Higiene
+     */
     public void limpiar(){
         higiene = higiene + 20;
         higiene = Math.min(higiene,atri.getHigiene());
     }
-
-    /**Actualiza el estado a el siguiente siclo)
-     *
+    /**Actualiza el estado al del siguiente ciclo
      */
     public void update(){
         Random r = new Random();
