@@ -133,16 +133,17 @@ abstract public class Mascota {
         //si es que es una medicina, si es usable entonces lo usa, sino se lo devuelve
         if (o.getTipo().equals("medicina")){
             //esta es la condicion para que se tome la medicina (puede cambiarse despues)
-            if (salud<atri.getSalud()-10){
+            if (salud<atri.getSalud()){
             sanar();
             }
-            else {
-                return o;
-            }
+            else return o;
         }
         else{
             //hasta ahora si no es medicina generica entonces es un alimento asi que se lo come
-            alimentar(o.getTipo());
+            if (hambre<atri.getHambre()){
+                alimentar(o.getTipo());
+            }
+            else return o;
         }
         //si es que "absorbio" el objeto entonces no se lo devuelve
         return null;
