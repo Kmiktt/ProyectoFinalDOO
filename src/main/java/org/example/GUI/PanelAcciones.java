@@ -29,7 +29,7 @@ public class PanelAcciones extends JPanel implements Refreshable {
     }
     private class MapaListener implements ActionListener{
         public void actionPerformed(ActionEvent e) {
-            pFather.cambiarSala();
+            pFather.cambiarSala(); actualizar();
         }
     }
 

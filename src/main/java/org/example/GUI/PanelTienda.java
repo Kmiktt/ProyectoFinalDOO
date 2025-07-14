@@ -6,6 +6,7 @@ import org.example.Logica.Tienda;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     private Tienda<Consumible> tienda;
@@ -15,10 +16,11 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
         super();
         //Inicializar cosas de Tienda
         tienda=new Tienda<Consumible>();
-        tienda.agregarProducto(new Carne(),20);
-        tienda.agregarProducto(new ComidaGenerica(),10);
+        tienda.agregarProducto(new Carne(),25);
+        tienda.agregarProducto(new ComidaGenerica(),5);
         tienda.agregarProducto(new Pescado(),25);
         tienda.agregarProducto(new Medicina(), 30);
+        tienda.agregarProducto(new Krill(), 20);
         tienda.actualizarStock(6);
         //Aspectos Visuales de paneles
         this.setBorder(BorderFactory.createEmptyBorder(80,80,100,80));
@@ -61,6 +63,11 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
             panelInfo.setBackground(Color.ORANGE);
             panel.add(panelInfo);
 
+            JLabel imagen = new JLabel(new ImageIcon("src/main/resources/icon"+c.getTipo()+"_2.png"));
+            imagen.setVerticalAlignment(JLabel.CENTER);
+            imagen.setHorizontalAlignment(JLabel.CENTER);
+            panelProducto.add(imagen);
+
             JLabel name = new JLabel(c.toString().substring(0,1).toUpperCase()+c.toString().substring(1).replace("_"," "));
             name.setFont(new Font("Comic Sans MS",Font.PLAIN,20));
             name.setBorder(BorderFactory.createLineBorder(Color.black,2));
@@ -98,9 +105,7 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
         labelDinero.setText("Dinero disponible: $"+Usuario.getInstance().getDinero());
-        for (Component c : panelContenido.getComponents()) {
-            //System.out.println(c.getX());
-        }
+        revalidate();
     }
     public void updatearTienda(){
         tienda.actualizarStock(6);

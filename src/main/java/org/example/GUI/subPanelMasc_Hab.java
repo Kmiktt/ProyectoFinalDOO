@@ -19,6 +19,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
     JButton bLimpiar;
     JButton bCurar;
     JButton bJugar;
+    JButton bMover;
     int index;
     PanelHabitat panelPadre;
 
@@ -35,16 +36,16 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
         JPanel pmasc = new JPanel(new BorderLayout(10,10));
         pmasc.setBackground(new Color(0,0,0,0));
         this.add(pmasc,c);
-        JButton mover = new JButton("Mover Mascota");
-        mover.addActionListener(e -> moverMascota());
-        pmasc.add(mover,BorderLayout.SOUTH);
+        bMover = new JButton("Mover Mascota");
+        bMover.addActionListener(e -> moverMascota());
+        pmasc.add(bMover,BorderLayout.SOUTH);
         JPanel pstats = new JPanel(new GridBagLayout());
         pstats.setBorder(BorderFactory.createLineBorder(Color.black,3));
         c.weightx=0.1;
         this.add(pstats,c);
         c.ipadx=0;
         c.ipady=0;
-        JLabel nombre = new JLabel(mascota.nombre);
+        JLabel nombre = new JLabel(mascota.getNombre());
         nombre.setVerticalAlignment(JLabel.CENTER);
         nombre.setHorizontalAlignment(JLabel.CENTER);
         nombre.setFont(new Font("Calisto MT",Font.BOLD,24));
@@ -113,7 +114,8 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
     }
     private void actualizarBotones(){
         Usuario u = Usuario.getInstance();
-        bAlimentar.setEnabled(mascota.hambre < mascota.atri.getHambre() && u.cuantoObjeto(PanelInventario.intToComidaString(u.comidaIndex%3+1))>0);
+        bMover.setEnabled(u.getMascota()==null);
+        bAlimentar.setEnabled(mascota.hambre < mascota.atri.getHambre() && u.cuantoObjeto(PanelInventario.intToComidaString(u.comidaIndex%4+1))>0);
         bLimpiar.setEnabled(mascota.higiene < mascota.atri.getHigiene());
         bJugar.setEnabled(mascota.felicidad < mascota.atri.getFelicidad());
         bCurar.setEnabled(mascota.salud < mascota.atri.getSalud() && u.cuantoObjeto("medicina")>0);

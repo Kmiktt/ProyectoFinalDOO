@@ -60,6 +60,7 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     public void adoptarMascota(String nombre,int index){
         refugio.adoptarAnimal(index, nombre);
         actualizar();
+        PanelBase.actualizarPanelAcciones();
     }
 
     public void actualizarStock(){
@@ -71,7 +72,6 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
         updatearVisual();
         revalidate();
         repaint();
-        PanelBase.actualizarPanelAcciones();
     }
 
     public void timeUpdate() {
