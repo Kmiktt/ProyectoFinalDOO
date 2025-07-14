@@ -30,6 +30,7 @@ public class Refugio{
     }
     /** Repone la cantidad de animales que aparecen en el refugio
      * @param size la cantidad de animales que van a haber en el restock
+     * @throws NoHayHabitatsException cuando no tienes Habitat entonces no hay mascotas que puedas Adoptar
      */
     public void actualizarStock(int size) throws NoHayHabitatsException{
         actualizarAnimales();
