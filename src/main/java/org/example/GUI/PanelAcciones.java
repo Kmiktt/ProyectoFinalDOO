@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**Panel encargado de almacenar los botones que se encuentran abajo de pantalla
+ * en todo momento.
+ * Te permite cambiar la velocidad del juego, ver y seleccionar objetos y mascotas
+ * de tu inventario, y cambiar entre las distintas habitaciones del juego*/
 public class PanelAcciones extends JPanel implements Refreshable {
     private final PanelVelocidad pVelocidad;
     private final PanelInventario pInvententario;

@@ -8,6 +8,10 @@ import org.example.Logica.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
+/**JPanel utilizado para vender mascotas a un cliente y conseguir dinero de vuelta
+ * El cliente esperará una cantidad de tiempo maxima hasta cambiar la mascota que busca
+ * Utiliza TomaMascota para permitir que el jugador le entregue al cliente la mascota
+ * que tiene en el inventario*/
 public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable, TomaMascota {
     private final ClienteMascota cliente;
     private final JLabel saludo;
@@ -46,7 +50,8 @@ public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable
         precio.setVerticalAlignment(JLabel.TOP);
         this.add(precio,c);
     }
-
+    /**Actualiza visualmente el texto del JPanel para acomodarse a la mascota que busca el cliente
+     * Se utiliza tambien para mostrar el precio que el cliente pagaria por la mascota.*/
     public void actualizar() {
         if (cliente.getTipo()==null) {
             saludo.setText("Muy buenas, actualmente no busco ningún animal!");
@@ -62,12 +67,13 @@ public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable
         revalidate();
         repaint();
     }
-
+    /**Actualiza el tiempo que el cliente ha estado esperando por una unidad y realiza los metodos correspondientes*/
     public void timeUpdate() {
         cliente.update();
         actualizar();
     }
-
+    /**Metodo de TomaMascota, le entrega la mascota a cliente para que realize su propio metodo de agregarMascota
+     * @return La misma mascota si es que no se pudo realizar la operación, o null si es que si se realizó*/
     @Override
     public Mascota agregarMascota(Mascota ma) {
         return cliente.agregarMascota(ma);

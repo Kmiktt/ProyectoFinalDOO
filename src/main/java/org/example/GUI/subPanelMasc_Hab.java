@@ -22,6 +22,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
     JButton bMover;
     int index;
     PanelHabitat panelPadre;
+    private Timer t;
 
     public subPanelMasc_Hab(PanelHabitat pH, int i){
         super();
@@ -159,7 +160,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
             if (Objects.equals(ref,"Jugar")) {
                 mascota.jugar();
             }
-            Timer t = new Timer(1200,null);
+            t = new Timer(1200,null);
             t.addActionListener(new TimerAccionesListener());
             t.start();
             PanelBase.actualizarPanelAcciones();
@@ -174,6 +175,7 @@ public class subPanelMasc_Hab extends JPanel implements Refreshable {
         public void actionPerformed(ActionEvent ae) {
             actualizar();
             repaint();
+            t.stop();
         }
     }
 }

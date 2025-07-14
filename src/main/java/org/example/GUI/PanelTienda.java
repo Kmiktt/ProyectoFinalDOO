@@ -7,6 +7,8 @@ import org.example.Logica.Tienda;
 import javax.swing.*;
 import java.awt.*;
 
+/**JPanel encargado de mostrar la selección de productos que tiene disponibles la tienda asociada.
+ * Permite tambien comprar productos, restando al usuario la cantidad de dinero correspondiente*/
 public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     private final Tienda<Consumible> tienda;
     private final JPanel panelContenido;

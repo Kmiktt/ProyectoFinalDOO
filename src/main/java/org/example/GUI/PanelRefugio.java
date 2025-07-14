@@ -7,6 +7,7 @@ import org.example.Logica.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
+/**JPanel encargado de mostrar la selección de mascotas que se pueden adoptar del refugio asociado.*/
 public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     private final JPanel panelContenido;
     private final Refugio refugio;
