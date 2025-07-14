@@ -31,9 +31,10 @@ public class Refugio{
     /** Repone la cantidad de animales que aparecen en el refugio
      * @param size la cantidad de animales que van a haber en el restock
      */
-    public void actualizarStock(int size) {
+    public void actualizarStock(int size) throws NoHayHabitatsException{
         actualizarAnimales();
         Random random = new Random();
+        actualizarAnimales();
         ArrayList<Mascota> auxa = new ArrayList<Mascota>();
         Mascota auxc;
         if(!mascotas.isEmpty()){
@@ -53,9 +54,11 @@ public class Refugio{
                 auxa.add(auxc);
             }
         }
+        else{
+            throw new NoHayHabitatsException();
+        }
         stock=auxa;
     }
-
     /**Adopta una mascota y la coloca en las manos del usuario
      * @param i el índice de la mascota que se quiere adoptar
      * @param nomb el nombre que se le dara a la mascota
@@ -66,7 +69,6 @@ public class Refugio{
             Usuario.getInstance().tomarMascota(stock.remove(i));
         }
     }
-
     /**Retorna el ArrayList del Stock de mascotas actual
      * @return el ArrayList del stock de mascotas
      */

@@ -14,7 +14,7 @@ public class UsuarioTestBase {
     private Consumible consumible2;
     private Usuario u;
     private Habitat hab;
-    @org.junit.jupiter.api.BeforeEach
+    @BeforeEach
     void setUp() {
         Usuario.reset();
         u=Usuario.getInstance();
@@ -24,7 +24,7 @@ public class UsuarioTestBase {
         consumible2=new Medicina();
         hab=new Habitat("terrestre");
     }
-    @org.junit.jupiter.api.AfterEach
+    @AfterEach
     void tearDown() {
         mascota1=null;
         mascota2=null;
