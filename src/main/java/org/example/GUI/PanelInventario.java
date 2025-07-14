@@ -7,6 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 
+/**JPanel encargado de mostrar los objetos que se tienen en el inventarios, permitiendote
+ * seleccionarlos según indicado*/
 public class PanelInventario extends JPanel implements Refreshable {
     private final JLabel comida;
     private final JLabel medicina;
@@ -81,14 +83,6 @@ public class PanelInventario extends JPanel implements Refreshable {
         animal.setHorizontalTextPosition(JLabel.CENTER);
         animal.setVerticalTextPosition(JLabel.TOP);
         animal.setVerticalAlignment(JLabel.TOP);
-        animal.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (Usuario.getInstance().getMascota()!=null){
-                    checkearMascota();
-                }
-            }
-        });
         espacio3.add(animal);
         pBase.add(espacio3,gbc);
         botonEntregar = new JButton("Entregar");
@@ -101,8 +95,10 @@ public class PanelInventario extends JPanel implements Refreshable {
         actualizarDatos();
 
     }
-    private void checkearMascota(){
-    }
+    /**Metodo utilizado para convertir de un entero al consumible correspondiente, es
+     * estático para que lo puedan acceder otras partes del codigo si es correspondiente
+     * @param i int que representa un Consumible
+     * @return String que es el tipo del consumible correspondiente */
     public static String intToComidaString(int i){
         return switch (i) {
             case 0 -> "medicina";
@@ -119,6 +115,8 @@ public class PanelInventario extends JPanel implements Refreshable {
         revalidate();
         repaint();
     }
+    /**Actualiza la cantidad de cada objeto mostrado en pantalla, y el nombre y especie de la mascota que se tiene
+     *  en el inventario*/
     public void actualizarDatos(){
         String auxTipo = intToComidaString((u.comidaIndex%4)+1);
         comida.setText("x"+u.cuantoObjeto(auxTipo));
@@ -133,6 +131,8 @@ public class PanelInventario extends JPanel implements Refreshable {
         }
         botonEntregar.setEnabled(PanelBase.getPanelActual() instanceof TomaMascota && u.getMascota() != null);
     }
+    /**Metodo usado al hacer click al botón de entregar que tiene la mascota del inventario, se la entrega
+     * al JPanel de TomaMascota si es que el panel actual tiene tal interfaz*/
     private void entregarMascota(){
         TomaMascota tm = (TomaMascota) PanelBase.getPanelActual();
         Usuario.getInstance().colocarMascota(tm);

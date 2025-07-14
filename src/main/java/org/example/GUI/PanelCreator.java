@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
 
+/**Enum utlizado en algunas partes para simplificar la creación de nuevos paneles
+ * Permite devolver nuevos paneles que sigan ciertas condiciones, o actualizar un panel ya existente*/
 public enum PanelCreator {
     BaseAcc(null,new Color(176,122,86),BorderFactory.createLineBorder(new Color(44,14,3),3)),
     PanVel(new BorderLayout(),PanelCreator.BaseAcc.bgC(),PanelCreator.BaseAcc.bdr()),

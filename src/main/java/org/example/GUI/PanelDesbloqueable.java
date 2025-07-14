@@ -5,6 +5,8 @@ import org.example.Logica.Usuario;
 import javax.swing.*;
 import java.awt.*;
 
+/**Panel encargado de dar acceso a nuevos Habitat a cambio de dinero, pidiendo mas dinero por cada habitat
+ * que ya se ha comprado.*/
 public class PanelDesbloqueable extends JPanel implements Refreshable {
     private int precio;
     private final JButton b1;
@@ -46,6 +48,8 @@ public class PanelDesbloqueable extends JPanel implements Refreshable {
         pl2.add(b3);
         this.add(pl2);
     }
+    /**Agrega un nuevo panel de Habitat de acuerdo al botón que se presionó, y resta el dinero correspondiente
+     * @param tipo El tipo de habitat que se va a crear, de acuerdo al botón de compra presionado*/
     public void desbloquear(String tipo){
         if(Usuario.getInstance().getDinero()>=precio){
             pb.agregarPanel(new PanelHabitat(tipo));
