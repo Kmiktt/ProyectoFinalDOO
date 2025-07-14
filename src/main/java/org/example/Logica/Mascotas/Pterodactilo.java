@@ -10,9 +10,4 @@ public class Pterodactilo extends Mascota {
         this.salud = atri.getSalud();
         this.felicidad = atri.getFelicidad();
     }
-
-    @Override
-    public Mascota clonar() {
-        return new Pterodactilo(this.nombre, this.aspecto);
-    }
 }

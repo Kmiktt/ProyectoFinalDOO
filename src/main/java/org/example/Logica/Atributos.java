@@ -1,5 +1,7 @@
 package org.example.Logica;
 
+/** Enum que tiene los Atributos base y sus caracteristicas de cada especie
+ */
 public enum Atributos {
     GATO        ("pescado","cazar","terrestre","gato", 80, 30, 70, 100),
     PEZ         ("krill", "burbujas","acuatico", "pez",80, 40, 50, 80),

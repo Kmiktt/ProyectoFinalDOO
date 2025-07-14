@@ -8,11 +8,15 @@ import java.util.Random;
 public class Refugio{
     private ArrayList<Mascota> stock;
     private ArrayList<String> mascotas;
+
+    /**Constructor del Objeto Refugio
+     */
     public Refugio(){
         stock=new ArrayList<Mascota>();
         mascotas=new ArrayList<String>();
     }
-
+    /** Actualiza las especies de mascota que pueden aparecer en el refugio
+     */
     public void actualizarAnimales(){
         ArrayList<String> auxa= new ArrayList<String>();
         for (int i = 0; i < Habitat.getInstancias().size(); i++) {
@@ -24,7 +28,9 @@ public class Refugio{
         }
         mascotas=auxa;
     }
-
+    /** Repone la cantidad de animales que aparecen en el refugio
+     * @param size la cantidad de animales que van a haber en el restock
+     */
     public void actualizarStock(int size) {
         Random random = new Random();
         ArrayList<Mascota> auxa = new ArrayList<Mascota>();
@@ -42,20 +48,17 @@ public class Refugio{
                     case "pájaro" -> new Pez("Burghley", 0);
                     default -> new Gato("December", 0);
                 };
-                randomizarStat(auxc);
+                auxc.randomizarStat();
                 auxa.add(auxc);
             }
         }
         stock=auxa;
     }
-    private void randomizarStat(Mascota m){
-      Random random = new Random();
-      m.hambre = random.nextInt(m.atri.getHambre());
-      m.salud = random.nextInt(m.atri.getSalud());
-      m.higiene = random.nextInt(m.atri.getHigiene());
-      m.felicidad = random.nextInt(m.atri.getFelicidad());
-    }
 
+    /**Adopta una mascota y la coloca en las manos del usuario
+     * @param i el índice de la mascota que se quiere adoptar
+     * @param nomb el nombre que se le dara a la mascota
+     */
     public void adoptarAnimal(int i,String nomb){
         if (Usuario.getInstance().getMascota()==null) {
             stock.get(i).setNombre(nomb);
@@ -63,6 +66,9 @@ public class Refugio{
         }
     }
 
+    /**Retorna el ArrayList del Stock de mascotas actual
+     * @return el ArrayList del stock de mascotas
+     */
     public ArrayList<Mascota> getStock(){
         return stock;
     }
