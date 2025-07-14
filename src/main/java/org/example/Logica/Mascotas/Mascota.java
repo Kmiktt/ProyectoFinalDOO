@@ -1,6 +1,7 @@
 package org.example.Logica.Mascotas;
 
 import org.example.Logica.Atributos;
+import org.example.Logica.ConsumibleNuloException;
 import org.example.Logica.Consumibles.Consumible;
 import org.example.Logica.Habitat;
 
@@ -127,7 +128,8 @@ abstract public class Mascota {
      * @param o El consumible que procesara
      * @return  El consumible rechazado
      */
-    public Consumible tomarObjeto(Consumible o){
+    public Consumible tomarObjeto(Consumible o) throws ConsumibleNuloException {
+        if (o==null) throw new ConsumibleNuloException();
         //si es que es una medicina, si es usable entonces lo usa, sino se lo devuelve
         if (o.getTipo().equals("medicina")){
             //esta es la condicion para que se tome la medicina (puede cambiarse despues)
