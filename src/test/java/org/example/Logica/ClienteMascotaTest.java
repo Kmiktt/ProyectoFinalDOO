@@ -37,4 +37,14 @@ class ClienteMascotaTest {
         assertEquals(cm.cuantoPaga(mascota1),u.getDinero());
     }
 
+    @Test
+    @DisplayName("El Cliente se reinicia correctamente")
+    public void testReinicio() {
+        hab=new Habitat("terrestre");
+        cm=new ClienteMascota();
+        cm.setTipo("");
+        cm.ActualizarMascota();
+        assertNotEquals("", cm.getTipo());
+    }
+
 }
