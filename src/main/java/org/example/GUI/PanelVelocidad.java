@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelVelocidad extends JPanel implements Refreshable {
-    private JLabel titulo;
+    private final JLabel titulo;
     public PanelVelocidad() {
         super();
         PanelCreator.PanVel.update(this);
@@ -20,7 +20,7 @@ public class PanelVelocidad extends JPanel implements Refreshable {
         for(int i = 1; i<=8; i*=2){
             JButton b = new JButton("x"+i);
             int finalI = i;
-            b.addActionListener(e-> cambiarVelocidad(finalI));
+            b.addActionListener(_-> cambiarVelocidad(finalI));
             b.setFocusPainted(false);
             panelDeBotones.add(b);
         }

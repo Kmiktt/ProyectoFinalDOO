@@ -6,16 +6,17 @@ import org.example.Logica.Tienda;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
-    private Tienda<Consumible> tienda;
-    private JPanel panelContenido;
-    private JLabel labelDinero;
+    private final Tienda<Consumible> tienda;
+    private final JPanel panelContenido;
+    private final JLabel labelDinero;
+    private int tiempo;
     public PanelTienda(){
         super();
+        tiempo = 0;
         //Inicializar cosas de Tienda
-        tienda=new Tienda<Consumible>();
+        tienda=new Tienda<>();
         tienda.agregarProducto(new Carne(),25);
         tienda.agregarProducto(new ComidaGenerica(),5);
         tienda.agregarProducto(new Pescado(),25);
@@ -85,7 +86,7 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
             comprar.setFont(new Font("Rockwell",Font.PLAIN,24));
             comprar.setFocusPainted(false);
             int finalI = i;
-            comprar.addActionListener(e -> comprarProducto(finalI));
+            comprar.addActionListener(_ -> comprarProducto(finalI));
             panelInfo.add(comprar,BorderLayout.SOUTH);
 
             panelContenido.add(panel);
@@ -109,7 +110,7 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     }
     public void updatearTienda(){
         tienda.actualizarStock(6);
-        this.removeAll();
+        panelContenido.removeAll();
         crearPanelesDeProductos();
         actualizar();
     }
@@ -119,6 +120,9 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
         repaint();
     }
     public void timeUpdate() {
-        updatearTienda();
+        if ((tiempo>10 && tienda.getStock().isEmpty()) || (tiempo>20)) {
+            updatearTienda(); tiempo=0;
+        }
+        tiempo++;
     }
 }

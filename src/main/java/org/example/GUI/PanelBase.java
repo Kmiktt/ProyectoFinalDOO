@@ -8,27 +8,22 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelBase extends JPanel {
-    private PanelHabitat pHabitat0;
-    private PanelRefugio pRefugio;
     static private PanelAcciones pAcciones;
-    private PanelTienda pTienda;
-    private PanelComprador pComprador;
-    private PanelDesbloqueable pDesbloqueable;
-    private Usuario user;
     static private ArrayList<JPanel> paneles;
     static private int index;
+    private final Timer t;
     public PanelBase(){
         super();
-        user = Usuario.getInstance();
+        Usuario user = Usuario.getInstance();
         user.recibirDinero(500);
         user.agregarObjeto(new ComidaGenerica());
         user.agregarObjeto(new Krill());
         this.setLayout(new BorderLayout());
-        pHabitat0 = new PanelHabitat("terrestre");
-        pTienda = new PanelTienda();
-        pRefugio = new PanelRefugio();
-        pDesbloqueable = new PanelDesbloqueable(this);
-        pComprador = new PanelComprador();
+        PanelHabitat pHabitat0 = new PanelHabitat("terrestre");
+        PanelTienda pTienda = new PanelTienda();
+        PanelRefugio pRefugio = new PanelRefugio();
+        PanelDesbloqueable pDesbloqueable = new PanelDesbloqueable(this);
+        PanelComprador pComprador = new PanelComprador();
         paneles = new ArrayList<>();
         index=4;
         paneles.add(pRefugio);
@@ -39,6 +34,8 @@ public class PanelBase extends JPanel {
         this.add(pHabitat0,BorderLayout.CENTER);
         pAcciones = new PanelAcciones(this);
         this.add(pAcciones,BorderLayout.SOUTH);
+        t = new Timer(10000/Usuario.getInstance().velocidad,_->timeUpdate());
+        t.start();
     }
     public void cambiarSala(){
         this.remove(paneles.get(index));
@@ -60,5 +57,13 @@ public class PanelBase extends JPanel {
 
     static JPanel getPanelActual(){
         return paneles.get(index);
+    }
+    public void timeUpdate(){
+        for (JPanel p: paneles){
+            if (p instanceof TimeUpdatable) {
+                ((TimeUpdatable) p).timeUpdate();
+            }
+        }
+        t.setDelay(10000/Usuario.getInstance().velocidad);
     }
 }

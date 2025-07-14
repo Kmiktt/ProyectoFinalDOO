@@ -9,9 +9,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable, TomaMascota {
-    private ClienteMascota cliente;
-    private JLabel saludo;
-    private JLabel precio;
+    private final ClienteMascota cliente;
+    private final JLabel saludo;
+    private final JLabel precio;
     public PanelComprador() {
         super();
         cliente = new ClienteMascota();
@@ -48,11 +48,17 @@ public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable
     }
 
     public void actualizar() {
-        saludo.setText("Muy buenas, ando buscando un "+cliente.getTipo()+" para comprar!");
-        precio.setIcon(new ImageIcon("src/main/resources/icon"+cliente.getTipo()+"_2.png"));
-        if (Usuario.getInstance().getMascota()==null) {precio.setText("No tienes lo que busco? No estoy muy interesado"); return;}
-        if (!Usuario.getInstance().getMascota().getTipo().equals(cliente.getTipo())) {precio.setText("No tienes el animal que busco? Que mal..."); return;}
-        precio.setText("Por ese "+cliente.getTipo()+" que tienes en la mano, te podria pagar $"+cliente.cuantoPaga(Usuario.getInstance().getMascota()));
+        if (cliente.getTipo()==null) {
+            saludo.setText("Muy buenas, actualmente no busco ningún animal!");
+            precio.setText("");
+            precio.setIcon(null);
+        } else{
+            saludo.setText("Muy buenas, ando buscando un "+cliente.getTipo()+" para comprar!");
+            precio.setIcon(new ImageIcon("src/main/resources/icon"+cliente.getTipo()+"_2.png"));
+            if (Usuario.getInstance().getMascota()==null) {precio.setText("No tienes lo que busco? No estoy muy interesado"); return;}
+            if (!Usuario.getInstance().getMascota().getTipo().equals(cliente.getTipo())) {precio.setText("No tienes el animal que busco? Que mal..."); return;}
+            precio.setText("Por ese "+cliente.getTipo()+" que tienes en la mano, te podria pagar $"+cliente.cuantoPaga(Usuario.getInstance().getMascota()));
+        }
         revalidate();
         repaint();
     }
@@ -64,13 +70,12 @@ public class PanelComprador extends JPanel implements TimeUpdatable, Refreshable
 
     @Override
     public Mascota agregarMascota(Mascota ma) {
-        return null;
+        return cliente.agregarMascota(ma);
     }
 
     @Override
     protected void paintComponent(Graphics g){
-        String help;
-        if (cliente.getTipo()==null) {help="sin";} else {help="con";}
-        g.drawImage(new ImageIcon("src/main/resources/fondocliente"+help+".png").getImage(),0,0,null);
+        super.paintComponent(g);
+        g.drawImage(new ImageIcon("src/main/resources/fondoclientecon.png").getImage(),0,0,null);
     }
 }

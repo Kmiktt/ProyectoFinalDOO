@@ -1,6 +1,6 @@
 package org.example.GUI;
 
-import org.example.Logica.Mascotas.Gato;
+import org.example.Logica.Mascotas.*;
 import org.example.Logica.Habitat;
 import org.example.Logica.Mascotas.Mascota;
 import org.example.Logica.TomaMascota;
@@ -12,7 +12,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class PanelHabitat extends JPanel implements Refreshable, TimeUpdatable, TomaMascota {
-    private Habitat habitat;
+    private final Habitat habitat;
     private ArrayList<subPanelMasc_Hab> subPanels;
     public PanelHabitat(String tipo){
         super();
@@ -21,7 +21,7 @@ public class PanelHabitat extends JPanel implements Refreshable, TimeUpdatable, 
         this.setLayout(new GridLayout(2,3,30,20));
         Mascota m = new Gato("Kevin",0);
         habitat.agregarMascota(m);
-        Mascota m2 = new Gato("Kevin2",0);
+        Mascota m2 = new Perro("Kevin2",0);
         m2.hambre=3;
         m2.felicidad=10;
         m2.salud=0;

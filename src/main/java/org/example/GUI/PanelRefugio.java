@@ -8,8 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
-    private JPanel panelContenido;
-    private Refugio refugio;
+    private final JPanel panelContenido;
+    private final Refugio refugio;
+    private int tiempo;
     public boolean disponible;
     public PanelRefugio(){
         super();
@@ -75,6 +76,10 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     }
 
     public void timeUpdate() {
-        actualizarStock();
+        tiempo++;
+        if (tiempo>30 && !disponible){
+            tiempo=0;
+            actualizarStock();
+        }
     }
 }

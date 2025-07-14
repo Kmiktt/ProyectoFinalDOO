@@ -13,9 +13,9 @@ public enum PanelCreator {
     VelBotones(new GridLayout(2,2,30,10),new Color(0,0,0,0),BorderFactory.createLineBorder(new Color(0,0,0,0),5)),
     MascotaWrapper(new GridBagLayout(), new Color(255,200,200,255),BorderFactory.createLineBorder(Color.BLACK,3)),
     Vacio(null, new Color(0,0,0,0),null);
-    private LayoutManager layout;
-    private Color bgColor;
-    private Border bord;
+    private final LayoutManager layout;
+    private final Color bgColor;
+    private final Border bord;
     PanelCreator(LayoutManager Layout, Color bg, Border border){
         layout = Layout;
         bgColor = bg;
@@ -33,9 +33,7 @@ public enum PanelCreator {
         if (bord!=null)panel.setBorder(bord);
         return panel;
     }
-    public LayoutManager LM(){
-        return layout;
-    }
+
     public Color bgC(){
         return bgColor;
     }
