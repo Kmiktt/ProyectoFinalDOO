@@ -1,15 +1,20 @@
 package org.example.GUI;
 
+import org.example.Logica.Mascotas.Mascota;
+import org.example.Logica.TomaMascota;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 
 public class PanelInventario extends JPanel implements Refreshable {
     private final JLabel comida;
     private final JLabel medicina;
     private final JLabel animal;
+    private JButton botonEntregar;
     private Usuario u;
     public PanelInventario(){
         super();
@@ -38,8 +43,8 @@ public class PanelInventario extends JPanel implements Refreshable {
         espacio.setBackground(Color.LIGHT_GRAY); // (Opcional) Color para visualizar el espacio
         String auxTipo = intToComidaString(u.comidaIndex%3+1);
         comida = new JLabel("x"+u.cuantoObjeto(auxTipo),new ImageIcon("src/main/resources/"+auxTipo+"_1.png"),SwingConstants.CENTER);
-        comida.setVerticalTextPosition(JLabel.BOTTOM);
-        comida.setHorizontalTextPosition(JLabel.CENTER);
+        comida.setVerticalTextPosition(JLabel.CENTER);
+        comida.setHorizontalTextPosition(JLabel.RIGHT);
         comida.setVerticalAlignment(JLabel.BOTTOM);
         espacio.add(comida);
         pBase.add(espacio,gbc);
@@ -59,7 +64,7 @@ public class PanelInventario extends JPanel implements Refreshable {
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.gridheight=3;
-        medicina = new JLabel("x"+Usuario.getInstance().cuantoObjeto("medicina"),new ImageIcon("src/main/resources/medicina_1.png"),SwingConstants.CENTER);
+        medicina = new JLabel("x"+Usuario.getInstance().cuantoObjeto("medicina"),new ImageIcon("src/main/resources/iconmedicina_1.png"),SwingConstants.CENTER);
         medicina.setVerticalTextPosition(JLabel.BOTTOM);
         medicina.setHorizontalTextPosition(JLabel.CENTER);
         medicina.setVerticalAlignment(JLabel.BOTTOM);
@@ -70,11 +75,14 @@ public class PanelInventario extends JPanel implements Refreshable {
         pBase.add(espacio2,gbc);
 
         gbc.gridx = 2;
+        gbc.gridheight=2;
         JPanel espacio3 = new JPanel();
         espacio3.setPreferredSize(new Dimension(100, 80));
         espacio3.setBackground(Color.LIGHT_GRAY);
         espacio3.setBorder(BorderFactory.createEmptyBorder(14,0,14,0));
         animal = new JLabel();
+        animal.setHorizontalTextPosition(JLabel.CENTER);
+        animal.setVerticalTextPosition(JLabel.BOTTOM);
         animal.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -85,11 +93,17 @@ public class PanelInventario extends JPanel implements Refreshable {
         });
         espacio3.add(animal);
         pBase.add(espacio3,gbc);
+        botonEntregar = new JButton("Entregar");
+        botonEntregar.setFocusPainted(false);
+        botonEntregar.addActionListener(e -> entregarMascota());
+        gbc.gridy=2;
+        gbc.gridheight=1;
+        pBase.add(botonEntregar,gbc);
         this.add(pBase);
+        actualizarDatos();
 
     }
     private void checkearMascota(){
-        System.out.println(Usuario.getInstance().getMascota().toString());
     }
     public static String intToComidaString(int i){
         return switch (i) {
@@ -97,6 +111,7 @@ public class PanelInventario extends JPanel implements Refreshable {
             case 1 -> "comida_generica";
             case 2 -> "carne";
             case 3 -> "pescado";
+            case 4 -> "krill";
             default -> "";
         };
     }
@@ -107,13 +122,24 @@ public class PanelInventario extends JPanel implements Refreshable {
         repaint();
     }
     public void actualizarDatos(){
-        String auxTipo = intToComidaString(u.comidaIndex%3+1);
+        String auxTipo = intToComidaString((u.comidaIndex%4)+1);
         comida.setText("x"+u.cuantoObjeto(auxTipo));
-        comida.setIcon(new ImageIcon("src/main/resources/"+auxTipo+"_1.png"));
+        comida.setIcon(new ImageIcon("src/main/resources/icon"+auxTipo+"_1.png"));
         medicina.setText("x"+u.cuantoObjeto("medicina"));
         if (u.getMascota()!=null){
-            animal.setText(u.getMascota().nombre);
-            animal.setIcon(new ImageIcon("src/main/resources/icon_"+u.getMascota().getTipo()+".png"));
+            animal.setText(u.getMascota().getNombre());
+            animal.setIcon(new ImageIcon("src/main/resources/icon"+u.getMascota().getTipo()+"_1.png"));
+        } else {
+            animal.setText("");
+            animal.setIcon(null);
         }
+        botonEntregar.setEnabled(PanelBase.getPanelActual() instanceof TomaMascota && u.getMascota() != null);
+    }
+    private void entregarMascota(){
+        TomaMascota tm = (TomaMascota) PanelBase.getPanelActual();
+        Usuario.getInstance().colocarMascota(tm);
+        System.out.println(Usuario.getInstance().getMascota());
+        actualizarDatos();
+        PanelBase.actualizarPanelActual();
     }
 }

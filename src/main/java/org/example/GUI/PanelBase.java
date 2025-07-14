@@ -1,6 +1,6 @@
 package org.example.GUI;
 
-import org.example.Logica.Consumibles.ComidaGenerica;
+import org.example.Logica.Consumibles.*;
 import org.example.Logica.Usuario;
 
 import javax.swing.*;
@@ -12,6 +12,7 @@ public class PanelBase extends JPanel {
     private PanelRefugio pRefugio;
     static private PanelAcciones pAcciones;
     private PanelTienda pTienda;
+    private PanelComprador pComprador;
     private PanelDesbloqueable pDesbloqueable;
     private Usuario user;
     static private ArrayList<JPanel> paneles;
@@ -21,15 +22,18 @@ public class PanelBase extends JPanel {
         user = Usuario.getInstance();
         user.recibirDinero(500);
         user.agregarObjeto(new ComidaGenerica());
+        user.agregarObjeto(new Krill());
         this.setLayout(new BorderLayout());
         pHabitat0 = new PanelHabitat("terrestre");
         pTienda = new PanelTienda();
         pRefugio = new PanelRefugio();
         pDesbloqueable = new PanelDesbloqueable(this);
+        pComprador = new PanelComprador();
         paneles = new ArrayList<>();
-        index=3;
+        index=4;
         paneles.add(pRefugio);
         paneles.add(pTienda);
+        paneles.add(pComprador);
         paneles.add(pDesbloqueable);
         paneles.add(pHabitat0);
         this.add(pHabitat0,BorderLayout.CENTER);
@@ -42,6 +46,7 @@ public class PanelBase extends JPanel {
         this.add(paneles.get(index), BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
+        actualizarPanelActual();
     }
     public void agregarPanel(JPanel p ){
         paneles.add(p);
@@ -50,8 +55,7 @@ public class PanelBase extends JPanel {
         pAcciones.actualizar();
     }
     static public void actualizarPanelActual(){
-        JPanel p = paneles.get(index);
-        if (p instanceof Refreshable) ((Refreshable) p).actualizar();
+        if (paneles.get(index) instanceof Refreshable) ((Refreshable)paneles.get(index)).actualizar();
     }
 
     static JPanel getPanelActual(){

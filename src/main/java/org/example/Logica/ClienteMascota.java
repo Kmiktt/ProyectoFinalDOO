@@ -4,6 +4,7 @@ import org.example.Logica.Mascotas.Mascota;
 import java.util.ArrayList;
 import java.util.Random;
 
+
 public class ClienteMascota implements TomaMascota{
     private String tipo;
     private int ticks;
@@ -11,13 +12,13 @@ public class ClienteMascota implements TomaMascota{
     /**Constructor de Objeto ClienteMascota
      */
     public ClienteMascota(){
-        mascotas = new ArrayList<String>();
+        mascotas = new ArrayList<>();
         ActualizarMascota();
     }
     /** Actualiza las especies de mascota que puede pedir el cliente
      */
     public void actualizarAnimales(){
-        ArrayList<String> auxa= new ArrayList<String>();
+        ArrayList<String> auxa= new ArrayList<>();
         for (int i = 0; i < Habitat.getInstancias().size(); i++) {
             for (Atributos a:Atributos.values()){
                 if (a.getHabitat().equals(Habitat.getInstancias().get(i).getTipo())){
@@ -38,6 +39,8 @@ public class ClienteMascota implements TomaMascota{
         }
         else {
             Usuario.getInstance().recibirDinero(cuantoPaga(ma));
+            tipo=null;
+            ticks=0;
             return null;
         }
     }
@@ -75,9 +78,13 @@ public class ClienteMascota implements TomaMascota{
      * actualiza el estado de el CLiente
      */
     public void update(){
+        Random r = new Random();
         ticks+=1;
-        if (ticks>=50){
+        if (ticks>=5 && tipo == null && r.nextInt(100)<10){
             ActualizarMascota();
+        }
+        if (ticks >= 50 && tipo != null && r.nextInt(100)<5){
+
         }
     }
     /**Setter de la especie de mascota que el cliente quiere comprar
