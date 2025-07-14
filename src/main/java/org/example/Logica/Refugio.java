@@ -32,6 +32,7 @@ public class Refugio{
      * @param size la cantidad de animales que van a haber en el restock
      */
     public void actualizarStock(int size) {
+        actualizarAnimales();
         Random random = new Random();
         ArrayList<Mascota> auxa = new ArrayList<Mascota>();
         Mascota auxc;
@@ -45,7 +46,7 @@ public class Refugio{
                     case "pterodáctilo" -> new Pterodactilo("Ralsei", 0);
                     case "ajolote" -> new Ajolote("Noelle", 0);
                     case "pez" -> new Pez("Undyne", 0);
-                    case "pájaro" -> new Pez("Burghley", 0);
+                    case "pájaro" -> new Canario("Burghley", 0);
                     default -> new Gato("December", 0);
                 };
                 auxc.randomizarStat();

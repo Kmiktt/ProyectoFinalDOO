@@ -12,18 +12,19 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     private final Refugio refugio;
     private int tiempo;
     public boolean disponible;
+    public boolean adoptado;
     public PanelRefugio(){
         super();
+        adoptado = false;
         refugio = new Refugio();
         refugio.actualizarAnimales();
         refugio.actualizarStock(4);
         this.setBorder(BorderFactory.createEmptyBorder(80,80,100,80));
-        this.setBackground(new Color(100,100,255,255));
+        this.setBackground(new Color(100,100,255,0));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JPanel panelVacio = new JPanel();
-        panelVacio.setBackground(Color.LIGHT_GRAY);
-        panelVacio.setBorder(BorderFactory.createLineBorder(Color.black));
+        panelVacio.setBackground(new Color(255,255,255,0));
         c.gridx = 0; // Primera columna
         c.gridy = 0; // Primera fila
         c.weightx = 0.5; // 30% del ancho
@@ -55,11 +56,14 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
+        g.drawImage(new ImageIcon("src/main/resources/fondorefugio.png").getImage(),0,0,null);
         disponible= Usuario.getInstance().getMascota()==null;
+        disponible = (disponible&&!adoptado);
     }
 
     public void adoptarMascota(String nombre,int index){
         refugio.adoptarAnimal(index, nombre);
+        adoptado=true;
         actualizar();
         PanelBase.actualizarPanelAcciones();
     }
@@ -77,9 +81,10 @@ public class PanelRefugio extends JPanel implements Refreshable,TimeUpdatable{
 
     public void timeUpdate() {
         tiempo++;
-        if (tiempo>30 && !disponible){
+        if (tiempo>2 && !disponible){
             tiempo=0;
             actualizarStock();
+            adoptado=false;
         }
     }
 }

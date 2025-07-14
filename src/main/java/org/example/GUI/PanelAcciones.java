@@ -24,6 +24,7 @@ public class PanelAcciones extends JPanel implements Refreshable {
         mapa.addActionListener(new MapaListener());
         mapa.setFont(new Font("Comic Sans MS",Font.PLAIN,16));
         mapa.setPreferredSize(new Dimension(250,50));
+        mapa.setFocusPainted(false);
         pMapa.add(mapa);
     }
     private class MapaListener implements ActionListener{

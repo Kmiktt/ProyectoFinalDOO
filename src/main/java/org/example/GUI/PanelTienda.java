@@ -25,11 +25,11 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
         tienda.actualizarStock(6);
         //Aspectos Visuales de paneles
         this.setBorder(BorderFactory.createEmptyBorder(80,80,100,80));
-        this.setBackground(new Color(100,100,255,255));
+        this.setBackground(new Color(100,100,255,70));
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         JPanel panelVacio = new JPanel(new BorderLayout());
-        panelVacio.setBackground(Color.LIGHT_GRAY);
+        panelVacio.setBackground(new Color(220,220,220,90));
         panelVacio.setBorder(BorderFactory.createLineBorder(Color.black));
         c.gridx = 0; // Primera columna
         c.gridy = 0; // Primera fila
@@ -43,7 +43,7 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
         panelVacio.add(labelDinero,BorderLayout.SOUTH);
 
         panelContenido = new JPanel();
-        panelContenido.setBackground(Color.BLUE);
+        panelContenido.setBackground(new Color(0,180,255,100));
         panelContenido.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         panelContenido.setLayout(new GridLayout(2,3,10,10));
         c.gridx = 1;
@@ -101,11 +101,12 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
             crearPanelesDeProductos();
         }
         actualizar();
+        PanelBase.actualizarPanelAcciones();
     }
     @Override
     protected void paintComponent(Graphics g){
         super.paintComponent(g);
-        labelDinero.setText("Dinero disponible: $"+Usuario.getInstance().getDinero());
+        g.drawImage(new ImageIcon("src/main/resources/fondotienda.png").getImage(),0,0,null);
         revalidate();
     }
     public void updatearTienda(){
@@ -116,6 +117,7 @@ public class PanelTienda extends JPanel implements Refreshable,TimeUpdatable{
     }
 
     public void actualizar() {
+        labelDinero.setText("Dinero disponible: $"+Usuario.getInstance().getDinero());
         revalidate();
         repaint();
     }
