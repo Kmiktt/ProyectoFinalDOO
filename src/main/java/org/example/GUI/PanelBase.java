@@ -15,9 +15,12 @@ public class PanelBase extends JPanel {
     public PanelBase(){
         super();
         Usuario user = Usuario.getInstance();
-        user.recibirDinero(500);
+        user.recibirDinero(2000);
         user.agregarObjeto(new ComidaGenerica());
         user.agregarObjeto(new Krill());
+        user.agregarObjeto(new Medicina());
+        user.agregarObjeto(new Pescado());
+        user.agregarObjeto(new Carne());
         this.setLayout(new BorderLayout());
         PanelHabitat pHabitat0 = new PanelHabitat("terrestre");
         PanelTienda pTienda = new PanelTienda();

@@ -19,17 +19,6 @@ public class PanelHabitat extends JPanel implements Refreshable, TimeUpdatable, 
         habitat = new Habitat(tipo);
         this.setBorder(BorderFactory.createCompoundBorder(new EmptyBorder(80,80,120,80),null));
         this.setLayout(new GridLayout(2,3,30,20));
-        Mascota m = new Gato("Kevin",0);
-        habitat.agregarMascota(m);
-        Mascota m2 = new Perro("Kevin2",0);
-        m2.hambre=3;
-        m2.felicidad=10;
-        m2.salud=0;
-        Mascota m3 = new Gato("Kevin3",0);
-        m3.felicidad=50;
-        m3.hambre=40;
-        habitat.agregarMascota(m2);
-        habitat.agregarMascota(m3);
         crearPaneles();
     }
     @Override
