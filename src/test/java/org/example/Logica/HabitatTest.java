@@ -3,8 +3,6 @@ package org.example.Logica;
 import org.junit.jupiter.api.*;
 import org.example.Logica.Mascotas.*;
 
-import java.util.ArrayList;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class HabitatTest {
@@ -25,10 +23,10 @@ class HabitatTest {
         Habitat.resetInstancias();
     }
     @Test
-    @DisplayName("Intancias de Habitat guardadas")
+    @DisplayName("Instancias de Habitat guardadas")
     public void testInstancias() {
         System.out.println(Habitat.getInstancias());
-        assertEquals(hab,Habitat.getInstancias().get(0));
+        assertEquals(hab,Habitat.getInstancias().getFirst());
     }
     @Test
     @DisplayName("Agregar mascota funciona como debe")

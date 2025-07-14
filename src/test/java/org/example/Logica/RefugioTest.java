@@ -1,15 +1,8 @@
 package org.example.Logica;
 
-import org.example.Logica.Consumibles.Carne;
-import org.example.Logica.Consumibles.Consumible;
-import org.example.Logica.Consumibles.Medicina;
-import org.example.Logica.Mascotas.Gato;
-import org.example.Logica.Mascotas.Mascota;
-import org.example.Logica.Mascotas.Perro;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.example.Logica.Consumibles.*;
+import org.example.Logica.Mascotas.*;
+import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 
